@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\User;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -19,11 +21,18 @@ class AuthService
             ]);
         }
 
-        // TODO: Implement JWT
-        $token = $user->id;
-
         Auth::login($user);
 
-        return [$user, $token]; 
+        $payload = [
+            'user' => [
+                'id' => $user->id,
+            ],
+            'iat' => time(),
+            'exp' => time() + config('jwt.expires_in'),
+        ];
+
+        $jwt = JWT::encode($payload, config('jwt.secret_key'), 'HS256');
+
+        return [$user, $jwt]; 
     }
 }

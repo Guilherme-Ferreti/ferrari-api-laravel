@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +40,17 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Auth::viaRequest('jwt', function (Request $request) {
-            return User::find($request->bearerToken());
+            try {
+                $jwt = JWT::decode($request->bearerToken(), new Key(config('jwt.secret_key'), 'HS256'));
+
+                if ($jwt->exp <= time()) {
+                    return null;
+                }
+
+                return User::find($jwt->user->id);
+            } catch (\Exception) {
+                return null;
+            }
         });
     }
 }
