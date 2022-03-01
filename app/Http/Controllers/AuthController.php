@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Person;
+use App\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
+    public function __construct(private AuthService $authService) {}
+
     public function register(Request $request)
     {
         $attributes = $request->validate([
@@ -19,12 +23,32 @@ class AuthController extends Controller
             'document'  => 'bail|required|string|max:16|regex:/^\d+$/',
         ]);
 
+        $attributes['password'] = Hash::make($attributes['password']);
+
         $person = Person::create($attributes);
 
         $person->user()->create($attributes);
 
-        $person->load('user');
+        return $this->login($request);
+    }
 
-        return $person;
+    public function login(Request $request)
+    {
+        $crendentials = $request->validate([
+            'email'     => 'bail|required|string|max:255|email',
+            'password'  => ['bail', 'required', 'string', Password::defaults()],
+        ]);
+
+        [$user, $token] = $this->authService->login($crendentials);
+
+        return response()->json([
+            'user' => $user,
+            'accessToken' => $token,
+        ]);
+    }
+
+    public function me(Request $request)
+    {
+        return $request->user();
     }
 }
