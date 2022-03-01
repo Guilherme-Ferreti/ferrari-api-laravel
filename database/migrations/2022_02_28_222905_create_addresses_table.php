@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('zipcode', 8);
-            $table->foreignId('person_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('person_id')->constrained('persons')->cascadeOnDelete();
             $table->timestamps();
         });
     }

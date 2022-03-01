@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('person_id')->constrained('persons')->cascadeOnDelete();
             $table->foreignId('time_option_id')->constrained();
             $table->foreignId('payment_situation_id')->constrained();
             $table->foreignId('billing_address_id')->constrained('addresses');
