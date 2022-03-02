@@ -17,7 +17,7 @@ class AuthController extends Controller
         $attributes = $request->validate([
             'email'     => 'bail|required|string|max:255|email|unique:users',
             'name'      => 'bail|required|string|max:255',
-            'birthAt'   => 'bail|nullable|date_format:Y-m-d',
+            'birth_at'   => 'bail|nullable|date_format:Y-m-d',
             'password'  => ['bail', 'required', 'string', Password::defaults()],
             'phone'     => 'bail|required|string|max:16|regex:/^\d+$/',
             'document'  => 'bail|required|string|max:16|regex:/^\d+$/',
