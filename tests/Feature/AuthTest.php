@@ -2,14 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Models\Person;
-use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Testing\Fluent\AssertableJson;
-use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
+use App\Models\User;
+use App\Models\Person;
+use Illuminate\Testing\TestResponse;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AuthTest extends TestCase
 {
@@ -44,18 +42,35 @@ class AuthTest extends TestCase
         ]);
     }
 
+    public function test_a_user_can_login()
+    {
+        $user = User::factory()->for(Person::factory())->create();
+
+        $payload = [
+            'email'     => $user->email,
+            'password'  => 'password',
+        ];
+
+        $response = $this->postJson(route('auth.login'), $payload);
+
+        $response->assertOk();
+
+        $this->assertHasLoginResponse($response);
+    }
+
     private function assertHasLoginResponse(TestResponse $response)
     {
         $response->assertJson(fn (AssertableJson $json) => 
             $json
                 ->has('accessToken')
                 ->has('user', fn (AssertableJson $json) => 
-                    $json->has('person', fn (AssertableJson $json) => 
-                            $json->hasAll(['_id', 'name', 'birth_at', 'phone', 'document', 'updated_at', 'created_at'])
-                        )
+                    $json
                         ->hasAll([
-                            '_id', 'email', 'person_id', 'created_at', 'updated_at', 'person',
+                            '_id', 'email', 'createdAt', 'updatedAt', 'personId', 'person',
                         ])
+                        ->has('person', fn (AssertableJson $json) => 
+                            $json->hasAll(['_id', 'name', 'birthAt', 'phone', 'document', 'createdAt', 'updatedAt'])
+                        )
                 )
         );
     }
