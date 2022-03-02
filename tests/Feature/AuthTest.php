@@ -58,20 +58,34 @@ class AuthTest extends TestCase
         $this->assertHasLoginResponse($response);
     }
 
+    public function test_logged_in_user_information_can_be_retrieved()
+    {
+        $user = User::factory()->for(Person::factory())->create();
+        
+        $this->actingAs($user, 'api')
+            ->getJson(route('auth.me'))
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) => 
+                $this->assertHasUser($json)
+            );
+    }
+
     private function assertHasLoginResponse(TestResponse $response)
     {
         $response->assertJson(fn (AssertableJson $json) => 
             $json
                 ->has('accessToken')
                 ->has('user', fn (AssertableJson $json) => 
-                    $json
-                        ->hasAll([
-                            '_id', 'email', 'createdAt', 'updatedAt', 'personId', 'person',
-                        ])
-                        ->has('person', fn (AssertableJson $json) => 
-                            $json->hasAll(['_id', 'name', 'birthAt', 'phone', 'document', 'createdAt', 'updatedAt'])
-                        )
+                    $this->assertHasUser($json)
                 )
         );
+    }
+
+    private function assertHasUser(AssertableJson $json)
+    {
+        $json->hasAll('_id', 'email', 'createdAt', 'updatedAt', 'personId', 'person')
+            ->has('person', fn (AssertableJson $json) => 
+                $json->hasAll('_id', 'name', 'birthAt', 'phone', 'document', 'createdAt', 'updatedAt')
+            );
     }
 }

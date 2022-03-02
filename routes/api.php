@@ -20,10 +20,6 @@ Route::prefix('/auth')
     ->group(function () {
         Route::post('/register', [AuthController::class, 'register'])->name('register');
         Route::post('/login', [AuthController::class, 'login'])->name('login');
-    });
 
-Route::prefix('/auth')
-    ->middleware('auth:api')
-    ->group(function () {
-        Route::get('/me', [AuthController::class, 'me']);
+        Route::get('/me', [AuthController::class, 'me'])->middleware('auth:api')->name('me');
     });
