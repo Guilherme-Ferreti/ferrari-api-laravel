@@ -19,7 +19,7 @@ class AuthTest extends TestCase
         $payload = [
             'email'     => 'user@gmail.com',
             'name'      => 'John Doe',
-            'birthAt'  => '1990-01-01',
+            'birthAt'   => '1990-01-01',
             'password'  => 'password',
             'phone'     => '5511912345678',
             'document'  => '123456789012',

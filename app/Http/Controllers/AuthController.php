@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\RegisterDTO;
-use App\Http\Requests\RegisterRequest;
-use App\Http\Resources\UserResource;
 use App\Models\Person;
-use App\Services\AuthService;
 use Illuminate\Http\Request;
+use App\Services\AuthService;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
