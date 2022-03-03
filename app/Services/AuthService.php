@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\User;
 use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -23,6 +22,14 @@ class AuthService
 
         Auth::login($user);
 
+        return [
+            $user, 
+            self::createJwtFor($user)
+        ]; 
+    }
+
+    public static function createJwtFor(User $user): string
+    {
         $payload = [
             'user' => [
                 'id' => $user->id,
@@ -31,8 +38,6 @@ class AuthService
             'exp' => time() + config('jwt.expires_in'),
         ];
 
-        $jwt = JWT::encode($payload, config('jwt.secret_key'), 'HS256');
-
-        return [$user, $jwt]; 
+        return JWT::encode($payload, config('jwt.secret_key'), 'HS256');
     }
 }
