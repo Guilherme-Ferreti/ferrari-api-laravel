@@ -49,7 +49,7 @@ class AuthTest extends TestCase
 
         $jwt = AuthService::createJwtFor($user);
 
-        $this->getJson(route('auth.me'), ['Authorization' => "Bearer $jwt"])
+        $this->getJson(route('auth.profile.show'), ['Authorization' => "Bearer $jwt"])
             ->assertOk();
     }
 
@@ -74,7 +74,7 @@ class AuthTest extends TestCase
         $user = User::factory()->for(Person::factory())->create();
         
         $this->actingAs($user, 'api')
-            ->getJson(route('auth.me'))
+            ->getJson(route('auth.profile.show'))
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) => 
                 $this->assertHasUser($json)

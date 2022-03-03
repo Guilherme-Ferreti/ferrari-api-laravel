@@ -41,13 +41,4 @@ class AuthController extends Controller
             'accessToken' => $token,
         ]);
     }
-
-    public function me(Request $request)
-    {
-        $user = $request->user();
-
-        $user->load('person');
-
-        return new UserResource($user);
-    }
 }

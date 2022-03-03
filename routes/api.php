@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,7 @@ Route::prefix('/auth')
         Route::post('/register', [AuthController::class, 'register'])->name('register');
         Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-        Route::get('/me', [AuthController::class, 'me'])->middleware('auth:api')->name('me');
+        Route::middleware('auth:api')->group(function () {
+            Route::get('/me', [ProfileController::class, 'show'])->name('profile.show');
+        });
     });
