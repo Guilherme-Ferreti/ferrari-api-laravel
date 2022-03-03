@@ -19,7 +19,7 @@ class AuthTest extends TestCase
         $payload = [
             'email'     => 'user@gmail.com',
             'name'      => 'John Doe',
-            'birth_at'  => '1990-01-01',
+            'birthAt'  => '1990-01-01',
             'password'  => 'password',
             'phone'     => '5511912345678',
             'document'  => '123456789012',
@@ -33,7 +33,7 @@ class AuthTest extends TestCase
 
         $this->assertDatabaseHas(Person::class, [
             'name'      => $payload['name'],
-            'birth_at'  => $payload['birth_at'],
+            'birth_at'  => $payload['birthAt'],
             'phone'     => $payload['phone'],
             'document'  => $payload['document'],
         ]);

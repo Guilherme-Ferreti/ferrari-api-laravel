@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\RegisterDTO;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Person;
 use App\Services\AuthService;
@@ -13,22 +15,15 @@ class AuthController extends Controller
 {
     public function __construct(private AuthService $authService) {}
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $attributes = $request->validate([
-            'email'     => 'bail|required|string|max:255|email|unique:users',
-            'name'      => 'bail|required|string|max:255',
-            'birth_at'  => 'bail|nullable|date_format:Y-m-d',
-            'password'  => ['bail', 'required', 'string', Password::defaults()],
-            'phone'     => 'bail|required|string|max:16|regex:/^\d+$/',
-            'document'  => 'bail|required|string|max:16|regex:/^\d+$/',
-        ]);
+        $registerDTO = $request->toDTO();
 
-        $attributes['password'] = Hash::make($attributes['password']);
+        $registerDTO->password = Hash::make($registerDTO->password);
 
-        $person = Person::create($attributes);
+        $person = Person::create($registerDTO->toArray());
 
-        $person->user()->create($attributes);
+        $person->user()->create($registerDTO->toArray());
 
         return $this->login($request);
     }
