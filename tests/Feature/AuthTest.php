@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Person;
+use App\Services\AuthService;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -40,6 +41,16 @@ class AuthTest extends TestCase
         $this->assertDatabaseHas(User::class, [
             'email' => $payload['email'],
         ]);
+    }
+
+    public function test_jwt_authentication_works()
+    {
+        $user = User::factory()->for(Person::factory())->create();
+
+        $jwt = AuthService::createJwtFor($user);
+
+        $this->getJson(route('auth.me'), ['Authorization' => "Bearer $jwt"])
+            ->assertOk();
     }
 
     public function test_a_user_can_login()
