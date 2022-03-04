@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\DTO\RegisterDTO;
+use App\DTOs\RegisterDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 

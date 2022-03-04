@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\DTO\UpdateProfileDTO;
+use App\DTOs\UpdateProfileDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
