@@ -16,13 +16,13 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $registerDTO = $request->toDTO();
+        $attributes = $request->toDTO()->toArray();
 
-        $registerDTO->password = Hash::make($registerDTO->password);
+        $attributes['password'] = Hash::make($attributes['password']);
 
-        $person = Person::create($registerDTO->toArray());
+        $person = Person::create($attributes);
 
-        $person->user()->create($registerDTO->toArray());
+        $person->user()->create($attributes);
 
         return $this->login($request);
     }

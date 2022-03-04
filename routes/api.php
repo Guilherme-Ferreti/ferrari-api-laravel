@@ -23,5 +23,7 @@ Route::prefix('/auth')
 
         Route::middleware('auth:api')->group(function () {
             Route::get('/me', [ProfileController::class, 'show'])->name('profile.show');
+
+            Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
         });
     });
