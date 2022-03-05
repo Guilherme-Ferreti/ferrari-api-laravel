@@ -27,4 +27,17 @@ class ProfileController extends Controller
 
         return new UserResource($request->user());
     }
+
+    public function uploadPhoto(Request $request)
+    {
+        $request->validate([
+            'photo' => 'required|image',
+        ]);
+
+        $request->user()->update([
+            'photo' => $request->file('photo')->store('photos', ['disk' => 'public']),
+        ]);
+
+        return new UserResource($request->user());
+    }
 }

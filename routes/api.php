@@ -25,5 +25,6 @@ Route::prefix('/auth')
             Route::get('/me', [ProfileController::class, 'show'])->name('profile.show');
 
             Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+            Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload_photo');
         });
     });
