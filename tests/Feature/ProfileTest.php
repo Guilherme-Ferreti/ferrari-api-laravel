@@ -66,19 +66,17 @@ class ProfileTest extends TestCase
         
         Storage::fake('public');
 
-        $payload = [
-            'photo' => UploadedFile::fake()->image('photo.jpg'),
-        ];
+        $photo = UploadedFile::fake()->image('photo.jpg');
 
         $this->actingAs($user, 'api')
-            ->post(route('auth.profile.upload_photo'), $payload)
+            ->post(route('auth.profile.upload_photo'), ['photo' => $photo])
             ->assertOk();
 
         $this->assertDatabaseHas(User::class, [
             '_id' => $user->_id,
-            'photo' => $payload['photo']->hashName('photos/'),
+            'photo' => $photo->hashName('photos/'),
         ]);
 
-        Storage::disk('public')->assertExists($payload['photo']->hashName('photos/'));
+        Storage::disk('public')->assertExists($photo->hashName('photos/'));
     }
 }
