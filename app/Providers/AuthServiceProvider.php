@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\User;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,10 @@ class AuthServiceProvider extends ServiceProvider
             } catch (\Exception) {
                 return null;
             }
+        });
+
+        ResetPassword::createUrlUsing(function ($user, string $token) {
+            return config('app.frontend_app_url') . '/reset-password?token=' . $token;
         });
     }
 }

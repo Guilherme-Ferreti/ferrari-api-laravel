@@ -22,6 +22,8 @@ Route::prefix('/auth')
         Route::post('/register', [AuthController::class, 'register'])->name('register');
         Route::post('/login', [AuthController::class, 'login'])->name('login');
 
+        Route::post('/forgot-password', [PasswordController::class, 'forgotPassword'])->name('forgot_password');
+
         Route::middleware('auth:api')->group(function () {
             Route::get('/me', [ProfileController::class, 'show'])->name('profile.show');
 
