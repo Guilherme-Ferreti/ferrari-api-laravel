@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
@@ -25,13 +26,15 @@ Route::prefix('/auth')
         Route::post('/forgot-password', [PasswordController::class, 'forgotPassword'])->name('forgot_password');
         Route::post('/reset-password', [PasswordController::class, 'resetPassword'])->name('reset_password');
 
-        Route::middleware('auth:api')->group(function () {
-            Route::get('/me', [ProfileController::class, 'show'])->name('profile.show');
-
+        Route::middleware('auth')->group(function () {
             Route::put('/change-password', [PasswordController::class, 'changePassword'])->name('change_password');
+            
+            Route::get('/me', [ProfileController::class, 'show'])->name('profile.show');
 
             Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
             Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload_photo');
             Route::delete('/profile/delete-photo', [ProfileController::class, 'deletePhoto'])->name('profile.delete_photo');
         });
     });
+
+Route::apiResource('addresses', AddressController::class)->middleware('auth');
