@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PasswordUpdated;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +20,8 @@ class PasswordController extends Controller
         $request->user()->update([
             'password' => Hash::make($request->newPassword)
         ]);
+
+        PasswordUpdated::dispatch($request->user());
 
         return new UserResource($request->user());
     }
