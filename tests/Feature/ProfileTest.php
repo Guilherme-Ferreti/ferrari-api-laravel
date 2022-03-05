@@ -24,27 +24,27 @@ class ProfileTest extends TestCase
             'document'  => '81236821459',
         ];
 
-        $response = $this->actingAs($user, 'api')->putJson(route('auth.profile.update'), $payload);
-
-        $response->assertOk();
-
-        $response->assertJson(fn (AssertableJson $json) => 
-            $json
-                ->where('_id', $user->id)
-                ->where('email', $payload['email'])
-                ->has('createdAt')
-                ->has('updatedAt')
-                ->has('person', fn (AssertableJson $json) => 
-                    $json
-                        ->where('_id', $user->person->id)
-                        ->where('name', $payload['name'])
-                        ->where('birthAt', $payload['birthAt'])
-                        ->where('phone', $payload['phone'])
-                        ->where('document', $payload['document'])
-                        ->has('createdAt')
-                        ->has('updatedAt')
-                )
-                ->etc()
-        );
+        $this->actingAs($user, 'api')
+            ->putJson(route('auth.profile.update'), $payload)
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) => 
+                $json
+                    ->where('_id', $user->id)
+                    ->where('email', $payload['email'])
+                    ->has('photo')
+                    ->has('createdAt')
+                    ->has('updatedAt')
+                    ->has('person', fn (AssertableJson $json) => 
+                        $json
+                            ->where('_id', $user->person->id)
+                            ->where('name', $payload['name'])
+                            ->where('birthAt', $payload['birthAt'])
+                            ->where('phone', $payload['phone'])
+                            ->where('document', $payload['document'])
+                            ->has('createdAt')
+                            ->has('updatedAt')
+                    )
+                    ->etc()
+            );
     }
 }

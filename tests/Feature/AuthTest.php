@@ -41,7 +41,7 @@ class AuthTest extends TestCase
                     ->has('accessToken')
                     ->has('user', fn (AssertableJson $json) => 
                         $json
-                            ->hasAll('_id', 'createdAt', 'updatedAt')
+                            ->hasAll('_id', 'photo', 'createdAt', 'updatedAt')
                             ->where('email', $payload['email'])
                             ->has('person', fn (AssertableJson $json) => 
                                 $json
@@ -84,7 +84,7 @@ class AuthTest extends TestCase
                     ->has('accessToken')
                     ->has('user', fn (AssertableJson $json) => 
                         $json
-                            ->hasAll('createdAt', 'updatedAt')
+                            ->hasAll('photo', 'createdAt', 'updatedAt')
                             ->where('_id', $user->id)
                             ->where('email', $user->email)
                             ->has('person', fn (AssertableJson $json) => 
@@ -111,7 +111,7 @@ class AuthTest extends TestCase
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) => 
                 $json
-                    ->hasAll('createdAt', 'updatedAt')
+                    ->hasAll('photo', 'createdAt', 'updatedAt')
                     ->where('_id', $user->id)
                     ->where('email', $user->email)
                     ->has('person', fn (AssertableJson $json) => 
