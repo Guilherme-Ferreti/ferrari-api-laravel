@@ -6,6 +6,7 @@ use App\Events\PasswordUpdated;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class PasswordController extends Controller
 {
@@ -23,6 +24,8 @@ class PasswordController extends Controller
 
         PasswordUpdated::dispatch($request->user());
 
-        return new UserResource($request->user());
+        return response()->json([
+            'message' => 'Password updated successfully!',
+        ]);
     }
 }
