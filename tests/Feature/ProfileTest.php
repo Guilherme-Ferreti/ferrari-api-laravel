@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use App\Models\Person;
+use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Models\Person;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Testing\Fluent\AssertableJson;
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ProfileTest extends TestCase
 {
@@ -104,8 +104,12 @@ class ProfileTest extends TestCase
             'photo' => $photo->hashName('photos/'),
         ]);
 
+        $route = route('auth.profile.delete_photo');
+
+        $this->assertAuthenticatedOnly($route, 'delete');
+
         $this->actingAs($user)
-            ->delete(route('auth.profile.delete_photo'))
+            ->delete($route)
             ->assertOk();
 
         $this->assertDatabaseHas(User::class, [
