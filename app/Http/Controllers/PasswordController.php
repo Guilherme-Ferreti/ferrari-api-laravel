@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\PasswordUpdated;
-use App\Http\Resources\UserResource;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -22,7 +22,7 @@ class PasswordController extends Controller
             'password' => Hash::make($request->newPassword)
         ]);
 
-        PasswordUpdated::dispatch($request->user());
+        event(new PasswordReset($request->user()));
 
         return response()->json([
             'message' => 'Password updated successfully!',

@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Person;
-use App\Events\PasswordUpdated;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -32,7 +32,7 @@ class PasswordTest extends TestCase
             ->putJson(route('auth.change_password'), $payload)
             ->assertOk();
 
-        Event::assertDispatched(PasswordUpdated::class);
+        Event::assertDispatched(PasswordReset::class);
 
         $payload = [
             'email' => $user->email,
