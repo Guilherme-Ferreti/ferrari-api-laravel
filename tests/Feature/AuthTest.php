@@ -19,7 +19,11 @@ class AuthTest extends TestCase
 
         $jwt = AuthService::createJwtFor($user);
 
-        $this->getJson(route('auth.profile.show'), ['Authorization' => "Bearer $jwt"])
+        $route = route('auth.profile.show');
+
+        $this->getJson($route)->assertUnauthorized();
+
+        $this->getJson($route, ['Authorization' => "Bearer $jwt"])
             ->assertOk();
     }
 
@@ -105,9 +109,13 @@ class AuthTest extends TestCase
     public function test_logged_in_user_information_can_be_retrieved()
     {
         $user = User::factory()->for(Person::factory())->create();
+
+        $route = route('auth.profile.show');
+
+        $this->assertAuthenticatedOnly($route, 'get');
         
         $this->actingAs($user, 'api')
-            ->getJson(route('auth.profile.show'))
+            ->getJson($route)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) => 
                 $json

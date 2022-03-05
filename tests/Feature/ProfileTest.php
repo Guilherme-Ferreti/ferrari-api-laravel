@@ -26,8 +26,12 @@ class ProfileTest extends TestCase
             'document'  => '81236821459',
         ];
 
+        $route = route('auth.profile.update');
+
+        $this->assertAuthenticatedOnly($route, 'put');
+
         $this->actingAs($user, 'api')
-            ->putJson(route('auth.profile.update'), $payload)
+            ->putJson($route, $payload)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) => 
                 $json
@@ -71,8 +75,12 @@ class ProfileTest extends TestCase
             'photo' => $oldPhoto->hashName('photos/'),
         ]);
 
+        $route = route('auth.profile.upload_photo');
+
+        $this->assertAuthenticatedOnly($route);
+
         $this->actingAs($user, 'api')
-            ->post(route('auth.profile.upload_photo'), ['photo' => $newPhoto])
+            ->post($route, ['photo' => $newPhoto])
             ->assertOk();
 
         $this->assertDatabaseHas(User::class, [
