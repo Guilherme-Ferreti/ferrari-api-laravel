@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,8 @@ Route::prefix('/auth')
 
         Route::middleware('auth:api')->group(function () {
             Route::get('/me', [ProfileController::class, 'show'])->name('profile.show');
+
+            Route::put('/change-password', [PasswordController::class, 'changePassword'])->name('change_password');
 
             Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
             Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload_photo');
