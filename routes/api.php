@@ -26,5 +26,6 @@ Route::prefix('/auth')
 
             Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
             Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload_photo');
+            Route::delete('/profile/delete-photo', [ProfileController::class, 'deletePhoto'])->name('profile.delete_photo');
         });
     });

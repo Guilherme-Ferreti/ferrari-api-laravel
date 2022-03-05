@@ -62,21 +62,49 @@ class ProfileTest extends TestCase
 
     public function test_a_user_can_upload_a_photo()
     {
-        $user = User::factory()->for(Person::factory())->create();
-        
         Storage::fake('public');
 
-        $photo = UploadedFile::fake()->image('photo.jpg');
+        $newPhoto = UploadedFile::fake()->image('new_photo.jpg');
+        $oldPhoto = UploadedFile::fake()->image('old_photo.jpg');
+        
+        $user = User::factory()->for(Person::factory())->create([
+            'photo' => $oldPhoto->hashName('photos/'),
+        ]);
 
         $this->actingAs($user, 'api')
-            ->post(route('auth.profile.upload_photo'), ['photo' => $photo])
+            ->post(route('auth.profile.upload_photo'), ['photo' => $newPhoto])
             ->assertOk();
 
         $this->assertDatabaseHas(User::class, [
             '_id' => $user->_id,
+            'photo' => $newPhoto->hashName('photos/'),
+        ]);
+
+        Storage::disk('public')->assertExists($newPhoto->hashName('photos/'));
+        Storage::disk('public')->assertMissing($oldPhoto->hashName('photos/'));
+    }
+
+    public function test_a_user_can_delete_its_photo()
+    {
+        Storage::fake('public');
+        
+        $photo = UploadedFile::fake()->image('photo.jpg');
+
+        Storage::disk('public')->put('/photos', $photo);
+        
+        $user = User::factory()->for(Person::factory())->create([
             'photo' => $photo->hashName('photos/'),
         ]);
 
-        Storage::disk('public')->assertExists($photo->hashName('photos/'));
+        $this->actingAs($user, 'api')
+            ->delete(route('auth.profile.delete_photo'))
+            ->assertOk();
+
+        $this->assertDatabaseHas(User::class, [
+            '_id' => $user->_id,
+            'photo' => null,
+        ]);
+
+        Storage::disk('public')->assertMissing($photo->hashName('photos/'));
     }
 }

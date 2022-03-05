@@ -43,4 +43,15 @@ class ProfileController extends Controller
 
         return new UserResource($request->user());
     }
+
+    public function deletePhoto(Request $request)
+    {
+        Storage::disk('public')->delete($request->user()->photo);
+
+        $request->user()->update([
+            'photo' => null,
+        ]);
+        
+        return new UserResource($request->user());
+    }
 }
