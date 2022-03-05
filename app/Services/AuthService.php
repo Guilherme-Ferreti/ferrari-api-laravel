@@ -20,8 +20,6 @@ class AuthService
             ]);
         }
 
-        // Auth::login($user);
-
         return [
             $user, 
             self::createJwtFor($user)

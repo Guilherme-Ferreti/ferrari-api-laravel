@@ -114,7 +114,7 @@ class AuthTest extends TestCase
 
         $this->assertAuthenticatedOnly($route, 'get');
         
-        $this->actingAs($user, 'api')
+        $this->actingAs($user)
             ->getJson($route)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) => 

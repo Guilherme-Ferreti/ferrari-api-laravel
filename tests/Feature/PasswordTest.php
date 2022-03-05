@@ -25,7 +25,7 @@ class PasswordTest extends TestCase
             'newPasswordConfirmation' => $newPassword,
         ];
 
-        $this->actingAs($user, 'api')
+        $this->actingAs($user)
             ->putJson(route('auth.change_password'), $payload)
             ->assertOk();
 

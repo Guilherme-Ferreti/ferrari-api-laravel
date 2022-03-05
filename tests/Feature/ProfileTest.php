@@ -30,7 +30,7 @@ class ProfileTest extends TestCase
 
         $this->assertAuthenticatedOnly($route, 'put');
 
-        $this->actingAs($user, 'api')
+        $this->actingAs($user)
             ->putJson($route, $payload)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) => 
@@ -79,7 +79,7 @@ class ProfileTest extends TestCase
 
         $this->assertAuthenticatedOnly($route);
 
-        $this->actingAs($user, 'api')
+        $this->actingAs($user)
             ->post($route, ['photo' => $newPhoto])
             ->assertOk();
 
@@ -104,7 +104,7 @@ class ProfileTest extends TestCase
             'photo' => $photo->hashName('photos/'),
         ]);
 
-        $this->actingAs($user, 'api')
+        $this->actingAs($user)
             ->delete(route('auth.profile.delete_photo'))
             ->assertOk();
 
