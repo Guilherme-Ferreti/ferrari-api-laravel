@@ -45,6 +45,19 @@ class ProfileTest extends TestCase
                     )
                     ->etc()
             );
+
+            $this->assertDatabaseHas(Person::class, [
+                '_id'       => $user->person->_id,
+                'name'      => $payload['name'],
+                'birth_at'  => $payload['birthAt'],
+                'phone'     => $payload['phone'],
+                'document'  => $payload['document'],
+            ]);
+    
+            $this->assertDatabaseHas(User::class, [
+                '_id'   => $user->_id,
+                'email' => $payload['email'],
+            ]);
     }
 
     public function test_a_user_can_upload_a_photo()
