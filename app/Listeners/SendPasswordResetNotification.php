@@ -2,12 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\PasswordUpdated;
-use App\Notifications\PasswordUpdated as PasswordUpdatedNotification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Notifications\PasswordReset as PasswordResetNotification;
 
-class SendPasswordUpdatedNotification
+class SendPasswordResetNotification
 {
     /**
      * Create the event listener.
@@ -25,8 +25,8 @@ class SendPasswordUpdatedNotification
      * @param  object  $event
      * @return void
      */
-    public function handle(PasswordUpdated $event)
+    public function handle(PasswordReset $event)
     {
-        $event->user->notify(new PasswordUpdatedNotification);
+        $event->user->notify(new PasswordResetNotification);
     }
 }
