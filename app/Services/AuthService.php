@@ -20,7 +20,7 @@ class AuthService
             ]);
         }
 
-        Auth::login($user);
+        // Auth::login($user);
 
         return [
             $user, 
