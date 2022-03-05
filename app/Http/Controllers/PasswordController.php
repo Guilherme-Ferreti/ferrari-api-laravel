@@ -14,7 +14,7 @@ class PasswordController extends Controller
     {
         $request->validate([
             'currentPassword'           => 'required|string|max:255|current_password:api',
-            'newPassword'               => 'required|string|max:255|same:newPasswordConfirmation',
+            'newPassword'               => ['required', 'string', 'max:255', 'same:newPasswordConfirmation', PasswordRule::defaults()],
             'newPasswordConfirmation'   => 'required|string|max:255|same:newPassword',
         ]);
 
