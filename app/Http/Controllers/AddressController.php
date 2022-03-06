@@ -33,18 +33,31 @@ class AddressController extends Controller
         return new AddressResource(Address::create($attributes));
     }
 
-    public function show($id)
+    public function show(Address $address)
     {
-        $address = Address::query()
-            ->where('person_id', request()->user()->person_id)
-            ->findOrFail($id);
+        $this->authorize('view', $address);
 
         return new AddressResource($address);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Address $address)
     {
-        //
+        $this->authorize('update', $address);
+
+        $attributes = $request->validate([
+            'street'     => 'bail|string|max:255',
+            'number'     => 'bail|nullable|string|max:15',
+            'complement' => 'bail|nullable|string|max:255',
+            'district'   => 'bail|string|max:255',
+            'city'       => 'bail|string|max:255',
+            'state'      => 'bail|string|max:255',
+            'country'    => 'bail|string|max:255',
+            'zipcode'    => 'bail|string|max:8',
+        ]);
+
+        $address->update($attributes);
+
+        return new AddressResource($address);
     }
 
     public function destroy($id)

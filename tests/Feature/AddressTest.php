@@ -64,9 +64,9 @@ class AddressTest extends TestCase
                     ->etc()
             );
 
-        $person = Person::factory()->has(User::factory())->create();
+        $user = User::factory()->for(Person::factory())->create();
 
-        $this->actingAs($person->user)->get($route)->assertNotFound();
+        $this->actingAs($user)->get($route)->assertForbidden();
     }
 
     public function test_an_address_can_be_created()
@@ -86,5 +86,29 @@ class AddressTest extends TestCase
         $payload['person_id'] = $user->person_id;
 
         $this->assertDatabaseHas(Address::class, $payload);
+    }
+
+    public function test_an_address_can_be_updated()
+    {
+        $user = User::factory()->for(Person::factory()->has(Address::factory()))->create();
+
+        $payload = Address::factory()->make()->toArray();
+
+        $route = route('addresses.update', $user->person->addresses[0]->id);
+
+        $this->assertAuthenticatedOnly($route, 'put');
+
+        $this->actingAs($user)
+            ->putJson($route, $payload)
+            ->assertOk();
+
+        $payload['_id'] = $user->person->addresses[0]->id;
+        $payload['person_id'] = $user->person_id;
+
+        $this->assertDatabaseHas(Address::class, $payload);
+
+        $user = User::factory()->for(Person::factory())->create();
+
+        $this->actingAs($user)->putJson($route, $payload)->assertForbidden();
     }
 }
