@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,9 @@ class AddressController extends Controller
 {
     public function index()
     {
-        //
+        $addresses = Address::where('person_id', request()->user()->person_id)->get();
+
+        return AddressResource::collection($addresses);
     }
 
     public function store(Request $request)
@@ -27,7 +30,7 @@ class AddressController extends Controller
 
         $attributes['person_id'] = $request->user()->person_id;
 
-        return Address::create($attributes);
+        return new AddressResource(Address::create($attributes));
     }
 
     public function show($id)
