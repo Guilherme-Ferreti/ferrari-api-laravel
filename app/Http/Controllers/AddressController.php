@@ -35,7 +35,11 @@ class AddressController extends Controller
 
     public function show($id)
     {
-        //
+        $address = Address::query()
+            ->where('person_id', request()->user()->person_id)
+            ->findOrFail($id);
+
+        return new AddressResource($address);
     }
 
     public function update(Request $request, $id)
