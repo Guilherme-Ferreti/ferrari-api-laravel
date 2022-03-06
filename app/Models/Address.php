@@ -16,6 +16,7 @@ class Address extends Model
         'district',
         'city',
         'state',
+        'country',
         'zipcode',
         'person_id',
     ];

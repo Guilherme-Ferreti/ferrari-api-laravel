@@ -21,6 +21,7 @@ class AddressController extends Controller
             'district'   => 'bail|required|string|max:255',
             'city'       => 'bail|required|string|max:255',
             'state'      => 'bail|required|string|max:255',
+            'country'    => 'bail|required|string|max:255',
             'zipcode'    => 'bail|required|string|max:8',
         ]);
 
