@@ -20,7 +20,7 @@ class AddressResource extends JsonResource
             'zipcode'    => $this->zipcode,
             'personId'   => $this->person_id,
             'createdAt'  => $this->created_at,
-            'updatedAt'  => $this->updatedAt,
+            'updatedAt'  => $this->updated_at,
         ];
     }
 }
