@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Models\Address;
-use App\Models\Person;
-use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
+use App\Models\User;
+use App\Models\Person;
+use App\Models\Address;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AddressTest extends TestCase
 {
@@ -64,9 +64,8 @@ class AddressTest extends TestCase
                     ->etc()
             );
 
-        $user = User::factory()->for(Person::factory())->create();
-
-        $this->actingAs($user)->get($route)->assertForbidden();
+        $forbiddenUser = User::factory()->for(Person::factory())->create();
+        $this->actingAs($forbiddenUser)->get($route)->assertForbidden();
     }
 
     public function test_an_address_can_be_created()
@@ -79,9 +78,7 @@ class AddressTest extends TestCase
 
         $this->assertAuthenticatedOnly($route);
 
-        $this->actingAs($user)
-            ->postJson($route, $payload)
-            ->assertCreated();
+        $this->actingAs($user)->postJson($route, $payload)->assertCreated();
 
         $payload['person_id'] = $user->person_id;
 
@@ -98,17 +95,32 @@ class AddressTest extends TestCase
 
         $this->assertAuthenticatedOnly($route, 'put');
 
-        $this->actingAs($user)
-            ->putJson($route, $payload)
-            ->assertOk();
+        $this->actingAs($user)->putJson($route, $payload)->assertOk();
 
         $payload['_id'] = $user->person->addresses[0]->id;
         $payload['person_id'] = $user->person_id;
 
         $this->assertDatabaseHas(Address::class, $payload);
 
-        $user = User::factory()->for(Person::factory())->create();
+        $forbiddenUser = User::factory()->for(Person::factory())->create();
+        $this->actingAs($forbiddenUser)->putJson($route, $payload)->assertForbidden();
+    }
 
-        $this->actingAs($user)->putJson($route, $payload)->assertForbidden();
+    public function test_an_address_can_be_deleted()
+    {
+        $user = User::factory()->for(Person::factory()->has(Address::factory(2)))->create();
+
+        $route = route('addresses.destroy', $user->person->addresses[0]->id);
+
+        $this->assertAuthenticatedOnly($route, 'delete');
+
+        $this->actingAs($user)->delete($route)->assertNoContent();
+
+        $this->assertDatabaseMissing(Address::class, ['_id' => $user->person->addresses[0]->id]);
+
+        $forbiddenUser = User::factory()->for(Person::factory())->create();
+        $this->actingAs($forbiddenUser)
+            ->delete(route('addresses.destroy', $user->person->addresses[1]->id))
+            ->assertForbidden();
     }
 }

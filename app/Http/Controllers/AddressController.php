@@ -60,8 +60,12 @@ class AddressController extends Controller
         return new AddressResource($address);
     }
 
-    public function destroy($id)
+    public function destroy(Address $address)
     {
-        //
+        $this->authorize('delete', $address);
+
+        $address->delete();
+
+        return response()->noContent();
     }
 }
