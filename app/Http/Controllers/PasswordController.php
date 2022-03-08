@@ -18,11 +18,11 @@ class PasswordController extends Controller
             'newPasswordConfirmation'   => 'required|string|max:255|same:newPassword',
         ]);
 
-        $request->user()->update([
+        auth()->user()->update([
             'password' => Hash::make($request->newPassword)
         ]);
 
-        event(new PasswordReset($request->user()));
+        event(new PasswordReset(auth()->user()));
 
         return response()->json([
             'message' => 'Password updated successfully!',

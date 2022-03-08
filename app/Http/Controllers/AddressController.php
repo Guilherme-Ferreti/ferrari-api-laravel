@@ -10,7 +10,7 @@ class AddressController extends Controller
 {
     public function index()
     {
-        $addresses = Address::where('person_id', request()->user()->person_id)->get();
+        $addresses = Address::where('person_id', auth()->user()->person_id)->get();
 
         return AddressResource::collection($addresses);
     }
@@ -28,7 +28,7 @@ class AddressController extends Controller
             'zipcode'    => 'bail|required|string|max:8',
         ]);
 
-        $attributes['person_id'] = $request->user()->person_id;
+        $attributes['person_id'] = auth()->user()->person_id;
 
         return new AddressResource(Address::create($attributes));
     }

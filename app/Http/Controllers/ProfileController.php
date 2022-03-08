@@ -9,24 +9,22 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    public function show(Request $request)
+    public function show()
     {
-        $user = $request->user();
+        auth()->user()->load('person');
 
-        $user->load('person');
-
-        return new UserResource($user);
+        return new UserResource(auth()->user());
     }
 
     public function update(UpdateProfileRequest $request)
     {
         $attributes = $request->toDto()->toArray();
 
-        $request->user()->update($attributes);
+        auth()->user()->update($attributes);
 
-        $request->user()->person->update($attributes);
+        auth()->user()->person->update($attributes);
 
-        return new UserResource($request->user());
+        return new UserResource(auth()->user());
     }
 
     public function uploadPhoto(Request $request)
@@ -35,23 +33,23 @@ class ProfileController extends Controller
             'photo' => 'required|image',
         ]);
 
-        Storage::disk('public')->delete($request->user()->photo);
+        Storage::disk('public')->delete(auth()->user()->photo);
 
-        $request->user()->update([
+        auth()->user()->update([
             'photo' => $request->file('photo')->store('photos', ['disk' => 'public']),
         ]);
 
-        return new UserResource($request->user());
+        return new UserResource(auth()->user());
     }
 
-    public function deletePhoto(Request $request)
+    public function deletePhoto()
     {
-        Storage::disk('public')->delete($request->user()->photo);
+        Storage::disk('public')->delete(auth()->user()->photo);
 
-        $request->user()->update([
+        auth()->user()->update([
             'photo' => null,
         ]);
         
-        return new UserResource($request->user());
+        return new UserResource(auth()->user());
     }
 }
