@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SearchCepController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -37,4 +38,7 @@ Route::prefix('/auth')
         });
     });
 
-Route::apiResource('addresses', AddressController::class)->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::apiResource('addresses', AddressController::class);
+    Route::get('/addresses/search-cep/{cep}', SearchCepController::class)->name('addresses.search_cep');
+});
