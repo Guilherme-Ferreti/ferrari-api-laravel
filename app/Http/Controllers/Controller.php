@@ -32,4 +32,9 @@ class Controller extends BaseController
     {
         return response()->json(status: Response::HTTP_NO_CONTENT);
     }
+
+    protected function respondBadRequest(array $data = []): JsonResponse
+    {
+        return response()->json($data, Response::HTTP_BAD_REQUEST);
+    }
 }

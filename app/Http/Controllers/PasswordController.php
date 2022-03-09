@@ -36,8 +36,8 @@ class PasswordController extends Controller
         $status = Password::sendResetLink($request->only('email'));
 
         return $status === Password::RESET_LINK_SENT
-            ? response()->json(['status' => __($status)])
-            : response()->json(['email' => __($status)], 400);
+            ? $this->respondOk(['status' => __($status)])
+            : $this->respondBadRequest(['email' => __($status)]);
     }
     
     public function resetPassword(Request $request)
@@ -63,7 +63,7 @@ class PasswordController extends Controller
         });
 
         return $status === Password::PASSWORD_RESET
-            ?  response()->json(['status' => __($status)])
-            :  response()->json(['email' => __($status)], 400);
+            ? $this->respondOk(['status' => __($status)])
+            : $this->respondBadRequest(['email' => __($status)]);
     }
 }
