@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchCepController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
@@ -38,7 +39,13 @@ Route::prefix('/auth')
         });
     });
 
-Route::middleware('auth')->group(function () {
-    Route::apiResource('addresses', AddressController::class);
-    Route::get('/addresses/search-cep/{cep}', SearchCepController::class)->name('addresses.search_cep');
-});
+Route::prefix('/contacts')
+    ->group(function () {
+        Route::post('/', [ContactController::class, 'store'])->name('contacts.store');
+    });
+
+Route::middleware('auth')
+    ->group(function () {
+        Route::apiResource('addresses', AddressController::class);
+        Route::get('/addresses/search-cep/{cep}', SearchCepController::class)->name('addresses.search_cep');
+    });
