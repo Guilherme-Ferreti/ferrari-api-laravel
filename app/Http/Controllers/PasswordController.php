@@ -24,7 +24,7 @@ class PasswordController extends Controller
 
         event(new PasswordReset(auth()->user()));
 
-        return response()->json([
+        return $this->respondOk([
             'message' => 'Password updated successfully!',
         ]);
     }

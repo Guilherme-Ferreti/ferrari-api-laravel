@@ -36,7 +36,7 @@ class AuthController extends Controller
 
         [$user, $token] = $this->authService->login($crendentials);
 
-        return response()->json([
+        return $this->respondOk([
             'user' => new UserResource($user),
             'accessToken' => $token,
         ]);

@@ -30,7 +30,9 @@ class AddressController extends Controller
 
         $attributes['person_id'] = auth()->user()->person_id;
 
-        return new AddressResource(Address::create($attributes));
+        $address = Address::create($attributes);
+
+        return $this->respondCreated(new AddressResource($address));
     }
 
     public function show(Address $address)
@@ -66,6 +68,6 @@ class AddressController extends Controller
 
         $address->delete();
 
-        return response()->noContent();
+        return $this->respondNoContent();
     }
 }
