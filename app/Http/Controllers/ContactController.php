@@ -36,8 +36,8 @@ class ContactController extends Controller
     public function store(Request $request)
     {
         $attributes = $request->validate([
-           'name' => 'required|string|max:255',
-           'email' => 'required|string|email|max:255',
+           'name'    => 'required|string|max:255',
+           'email'   => 'required|string|email|max:255',
            'message' => 'required|string|max:65000', 
         ]);
 
@@ -62,5 +62,14 @@ class ContactController extends Controller
         $contact = Contact::create($attributes);
 
         return $this->respondCreated(new ContactResource($contact));
+    }
+
+    public function destroy(Contact $contact)
+    {
+        $this->authorize('delete', $contact);
+
+        $contact->delete();
+
+        return $this->respondNoContent();
     }
 }

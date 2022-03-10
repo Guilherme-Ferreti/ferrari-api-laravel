@@ -48,6 +48,7 @@ Route::prefix('/contacts')
                 Route::get('/', [ContactController::class, 'index'])->name('contacts.index');
                 Route::get('/my-contacts', [ContactController::class, 'myContacts'])->name('contacts.my_contacts');
                 Route::get('/{contact}', [ContactController::class, 'show'])->name('contacts.show');
+                Route::delete('/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
             });
     });
 

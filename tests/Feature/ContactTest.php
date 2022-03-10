@@ -171,4 +171,22 @@ class ContactTest extends TestCase
             'name' => 'Joseph Doe',
         ]);
     }
+
+    public function test_a_contact_can_be_deleted()
+    {
+        $user = User::factory()->for(Person::factory())->create();
+        $contact = Contact::factory()->for($user->person)->create();
+
+        $route = route('contacts.destroy', $contact);
+
+        $this->assertAuthenticatedOnly($route, 'delete');
+
+        $this->actingAs($user)
+            ->deleteJson($route)
+            ->assertNoContent();
+
+        $this->assertDatabaseMissing(Contact::class, [
+            'id' => $contact->id,
+        ]);
+    }
 }

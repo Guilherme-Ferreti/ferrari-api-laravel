@@ -17,6 +17,11 @@ class ContactPolicy
 
     public function view(User $user, Contact $contact)
     {
-        return $user->person_id === $contact->person_id || $user->isAdmin();
+        return $user->person_id == $contact->person_id || $user->isAdmin();
+    }
+
+    public function delete(User $user, Contact $contact)
+    {
+        return $user->person_id == $contact->person_id || $user->isAdmin();
     }
 }
