@@ -47,6 +47,7 @@ Route::prefix('/contacts')
             ->group(function () {
                 Route::get('/', [ContactController::class, 'index'])->name('contacts.index');
                 Route::get('/my-contacts', [ContactController::class, 'myContacts'])->name('contacts.my_contacts');
+                Route::get('/{contact}', [ContactController::class, 'show'])->name('contacts.show');
             });
     });
 

@@ -12,7 +12,7 @@ class ContactController extends Controller
 {
     public function index()
     {
-        $this->authorize('view', Contact::class);
+        $this->authorize('viewAny', Contact::class);
 
         return ContactResource::collection(Contact::all());
     }
@@ -22,6 +22,15 @@ class ContactController extends Controller
         $contacts = Contact::where('person_id', auth()->user()->person_id)->get();
 
         return ContactResource::collection($contacts);
+    }
+
+    public function show(Contact $contact)
+    {
+        $this->authorize('view', $contact);
+
+        $contact->load('person');
+
+        return new ContactResource($contact);
     }
 
     public function store(Request $request)
