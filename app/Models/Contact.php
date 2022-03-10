@@ -14,4 +14,9 @@ class Contact extends Model
         'message',
         'person_id',
     ];
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
 }

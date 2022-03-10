@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Models\Person;
 use App\Models\User;
@@ -37,6 +38,6 @@ class ContactController extends Controller
 
         $contact = Contact::create($attributes);
 
-        return $this->respondCreated($contact->toArray());
+        return $this->respondCreated(new ContactResource($contact));
     }
 }
