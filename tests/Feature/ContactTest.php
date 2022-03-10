@@ -185,9 +185,7 @@ class ContactTest extends TestCase
 
         $this->actingAs($user)->deleteJson($route)->assertNoContent();
 
-        $this->assertDatabaseMissing(Contact::class, [
-            'id' => $contact->id,
-        ]);
+        $this->assertModelMissing($contact);
     }
 
     public function test_a_contact_can_be_deleted_by_an_admin()
@@ -201,8 +199,6 @@ class ContactTest extends TestCase
 
         $this->actingAs($admin)->deleteJson($route)->assertNoContent();
 
-        $this->assertDatabaseMissing(Contact::class, [
-            'id' => $contact->id,
-        ]);
+        $this->assertModelMissing($contact);
     }
 }

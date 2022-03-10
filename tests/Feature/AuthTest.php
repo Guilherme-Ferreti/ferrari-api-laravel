@@ -23,8 +23,7 @@ class AuthTest extends TestCase
 
         $this->getJson($route)->assertUnauthorized();
 
-        $this->getJson($route, ['Authorization' => "Bearer $jwt"])
-            ->assertOk();
+        $this->getJson($route, ['Authorization' => "Bearer $jwt"])->assertOk();
     }
 
     public function test_a_user_can_register()

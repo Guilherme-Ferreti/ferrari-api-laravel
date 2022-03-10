@@ -79,9 +79,7 @@ class ProfileTest extends TestCase
 
         $this->assertAuthenticatedOnly($route);
 
-        $this->actingAs($user)
-            ->post($route, ['photo' => $newPhoto])
-            ->assertOk();
+        $this->actingAs($user)->post($route, ['photo' => $newPhoto])->assertOk();
 
         $this->assertDatabaseHas(User::class, [
             '_id' => $user->_id,
@@ -108,9 +106,7 @@ class ProfileTest extends TestCase
 
         $this->assertAuthenticatedOnly($route, 'delete');
 
-        $this->actingAs($user)
-            ->delete($route)
-            ->assertOk();
+        $this->actingAs($user)->delete($route)->assertOk();
 
         $this->assertDatabaseHas(User::class, [
             '_id'   => $user->_id,

@@ -32,9 +32,7 @@ class PasswordTest extends TestCase
 
         $this->assertAuthenticatedOnly($route, 'put');
 
-        $this->actingAs($user)
-            ->putJson($route, $payload)
-            ->assertOk();
+        $this->actingAs($user)->putJson($route, $payload)->assertOk();
 
         Event::assertDispatched(PasswordReset::class);
 

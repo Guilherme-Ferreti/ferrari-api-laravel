@@ -15,15 +15,14 @@ class AddressTest extends TestCase
 
     public function test_all_users_addresses_are_returned()
     {
-        $users = User::factory(2)
-            ->for(Person::factory()->has(Address::factory(5)))
-            ->create();
+        $userA = User::factory()->for(Person::factory()->has(Address::factory(5)))->create();
+        $userB = User::factory()->for(Person::factory()->has(Address::factory(3)))->create();
 
         $route = route('addresses.index');
 
         $this->assertAuthenticatedOnly($route, 'get');
 
-        $this->actingAs($users[0])
+        $this->actingAs($userA)
             ->get($route)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) => 
