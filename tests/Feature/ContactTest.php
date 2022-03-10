@@ -15,12 +15,35 @@ class ContactTest extends TestCase
 
     public function test_all_contacts_are_retrieved()
     {
-        $user = User::factory()->for(Person::factory())->create();
         Contact::factory(5)->for(Person::factory())->create();
+
+        $user = User::factory()->for(Person::factory())->create();
 
         $route = route('contacts.index');
 
         $this->assertAdminsOnly($route, 'get');
+
+        $this->actingAs($user)
+            ->getJson($route)
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) => 
+                $json->has(5)
+                    ->first(fn (AssertableJson $json) => 
+                        $json->hasAll('id', 'email', 'message', 'personId', 'createdAt', 'updatedAt')
+                    )
+            );
+    }
+
+    public function test_all_user_contacts_are_retrieved()
+    {
+        Contact::factory(10)->for(Person::factory())->create();
+        
+        $user = User::factory()->for(Person::factory())->create();
+        Contact::factory(5)->for($user->person)->create();
+
+        $route = route('contacts.my_contacts');
+
+        $this->assertAuthenticatedOnly($route, 'get');
 
         $this->actingAs($user)
             ->getJson($route)
