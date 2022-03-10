@@ -17,6 +17,13 @@ class ContactController extends Controller
         return ContactResource::collection(Contact::all());
     }
 
+    public function myContacts()
+    {
+        $contacts = Contact::where('person_id', auth()->user()->person_id)->get();
+
+        return ContactResource::collection($contacts);
+    }
+
     public function store(Request $request)
     {
         $attributes = $request->validate([

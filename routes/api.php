@@ -46,6 +46,7 @@ Route::prefix('/contacts')
         Route::middleware('auth')
             ->group(function () {
                 Route::get('/', [ContactController::class, 'index'])->name('contacts.index');
+                Route::get('/my-contacts', [ContactController::class, 'myContacts'])->name('contacts.my_contacts');
             });
     });
 
