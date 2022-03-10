@@ -9,7 +9,7 @@ class ContactResource extends JsonResource
     public function toArray($request)
     {
         return [
-            '_id'        => $this->id,
+            'id'         => $this->id,
             'email'      => $this->email,
             'message'    => $this->message,
             'personId'   => $this->person_id,

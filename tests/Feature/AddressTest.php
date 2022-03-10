@@ -29,7 +29,7 @@ class AddressTest extends TestCase
             ->assertJson(fn (AssertableJson $json) => 
                 $json->has(5)
                     ->first(fn (AssertableJson $json) => 
-                        $json->hasAll('_id', 'street', 'number', 'complement', 'district', 'city', 
+                        $json->hasAll('id', 'street', 'number', 'complement', 'district', 'city', 
                             'state', 'country', 'zipcode', 'personId', 'createdAt', 'updatedAt'
                         )
                     )
@@ -50,7 +50,7 @@ class AddressTest extends TestCase
             ->get($route)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
-                $json->where('_id', $address->id)
+                $json->where('id', $address->id)
                     ->where('street', $address->street)
                     ->where('number', $address->number)
                     ->where('complement', $address->complement)

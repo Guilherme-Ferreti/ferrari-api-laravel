@@ -35,12 +35,12 @@ class ProfileTest extends TestCase
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) => 
                 $json
-                    ->where('_id', $user->id)
+                    ->where('id', $user->id)
                     ->where('email', $payload['email'])
                     ->hasAll('photo', 'createdAt', 'updatedAt')
                     ->has('person', fn (AssertableJson $json) => 
                         $json
-                            ->where('_id', $user->person->id)
+                            ->where('id', $user->person->id)
                             ->where('name', $payload['name'])
                             ->where('birthAt', $payload['birthAt'])
                             ->where('phone', $payload['phone'])
@@ -113,7 +113,7 @@ class ProfileTest extends TestCase
             ->assertOk();
 
         $this->assertDatabaseHas(User::class, [
-            '_id' => $user->_id,
+            '_id'   => $user->_id,
             'photo' => null,
         ]);
 

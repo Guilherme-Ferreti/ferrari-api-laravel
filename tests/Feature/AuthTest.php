@@ -45,11 +45,11 @@ class AuthTest extends TestCase
                     ->has('accessToken')
                     ->has('user', fn (AssertableJson $json) => 
                         $json
-                            ->hasAll('_id', 'photo', 'createdAt', 'updatedAt')
+                            ->hasAll('id', 'photo', 'createdAt', 'updatedAt')
                             ->where('email', $payload['email'])
                             ->has('person', fn (AssertableJson $json) => 
                                 $json
-                                    ->hasAll('_id', 'createdAt', 'updatedAt')
+                                    ->hasAll('id', 'createdAt', 'updatedAt')
                                     ->where('name', $payload['name'])
                                     ->where('birthAt', $payload['birthAt'])
                                     ->where('phone', $payload['phone'])
@@ -89,11 +89,11 @@ class AuthTest extends TestCase
                     ->has('user', fn (AssertableJson $json) => 
                         $json
                             ->hasAll('photo', 'createdAt', 'updatedAt')
-                            ->where('_id', $user->id)
+                            ->where('id', $user->id)
                             ->where('email', $user->email)
                             ->has('person', fn (AssertableJson $json) => 
                                 $json
-                                    ->where('_id', $user->person->id)
+                                    ->where('id', $user->person->id)
                                     ->where('name', $user->person->name)
                                     ->where('birthAt', $user->person->birth_at)
                                     ->where('phone', $user->person->phone)
@@ -120,11 +120,11 @@ class AuthTest extends TestCase
             ->assertJson(fn (AssertableJson $json) => 
                 $json
                     ->hasAll('photo', 'createdAt', 'updatedAt')
-                    ->where('_id', $user->id)
+                    ->where('id', $user->id)
                     ->where('email', $user->email)
                     ->has('person', fn (AssertableJson $json) => 
                         $json
-                            ->where('_id', $user->person->id)
+                            ->where('id', $user->person->id)
                             ->where('name', $user->person->name)
                             ->where('birthAt', $user->person->birth_at)
                             ->where('phone', $user->person->phone)
