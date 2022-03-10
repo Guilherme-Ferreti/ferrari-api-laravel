@@ -12,7 +12,7 @@ class ContactPolicy
 
     public function viewAny(User $user)
     {
-        return $user->isAdmin() == true;
+        return $user->isAdmin();
     }
 
     public function view(User $user, Contact $contact)

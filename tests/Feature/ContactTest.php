@@ -17,13 +17,13 @@ class ContactTest extends TestCase
     {
         Contact::factory(5)->for(Person::factory())->create();
 
-        $user = User::factory()->for(Person::factory())->create();
+        $admin = User::factory()->admin()->for(Person::factory())->create();
 
         $route = route('contacts.index');
 
         $this->assertAdminsOnly($route, 'get');
 
-        $this->actingAs($user)
+        $this->actingAs($admin)
             ->getJson($route)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) => 

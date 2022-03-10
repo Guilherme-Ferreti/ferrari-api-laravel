@@ -27,7 +27,7 @@ class UserFactory extends Factory
     public function admin()
     {
         return $this->state([
-           'is_admin' => true, 
+           'email' => 'guilherme@gmail.com', 
         ]);
     }
 }
