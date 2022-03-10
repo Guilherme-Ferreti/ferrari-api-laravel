@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ContactResource;
-use App\Models\Contact;
-use App\Models\Person;
 use App\Models\User;
+use App\Models\Person;
+use App\Models\Contact;
 use Illuminate\Http\Request;
+use App\Http\Resources\ContactResource;
 
 class ContactController extends Controller
 {
+    public function index()
+    {
+        $this->authorize('view', Contact::class);
+
+        return ContactResource::collection(Contact::all());
+    }
+
     public function store(Request $request)
     {
         $attributes = $request->validate([

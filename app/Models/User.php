@@ -27,4 +27,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Person::class);
     }
+
+    public function isAdmin(): bool
+    {
+        return true;
+    }
 }

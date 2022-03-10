@@ -42,6 +42,11 @@ Route::prefix('/auth')
 Route::prefix('/contacts')
     ->group(function () {
         Route::post('/', [ContactController::class, 'store'])->name('contacts.store');
+
+        Route::middleware('auth')
+            ->group(function () {
+                Route::get('/', [ContactController::class, 'index'])->name('contacts.index');
+            });
     });
 
 Route::middleware('auth')
