@@ -56,7 +56,7 @@ class ContactTest extends TestCase
             );
     }
 
-    public function test_a_contact_can_be_retrieved()
+    public function test_a_contact_can_be_retrieved_by_its_owner()
     {
         $user = User::factory()->for(Person::factory())->create();
         $contact = Contact::factory()->for($user->person)->create();
@@ -76,12 +76,15 @@ class ContactTest extends TestCase
                     ->hasAll('person', 'createdAt', 'updatedAt')
                     ->etc()
             );
-    
-        $admin = User::factory()->admin()->for(Person::factory())->create();
+    }
 
-        $this->actingAs($admin)
-            ->getJson($route)
-            ->assertOk();
+    public function test_a_contact_can_be_retrieved_by_an_admin()
+    {
+        $admin = User::factory()->admin()->for(Person::factory())->create();
+        $user = User::factory()->for(Person::factory())->create();
+        $contact = Contact::factory()->for($user->person)->create();
+
+        $this->actingAs($admin)->getJson(route('contacts.show', $contact))->assertOk();
     }
 
     public function test_a_contact_can_be_created()
@@ -92,8 +95,7 @@ class ContactTest extends TestCase
             'message' => 'Hi there!',
         ];
 
-        $this->postJson(route('contacts.store'), $payload)
-            ->assertCreated();
+        $this->postJson(route('contacts.store'), $payload)->assertCreated();
 
         $this->assertDatabaseHas(Contact::class, [
             'email' => 'josephdoe@gmail.com',
@@ -172,7 +174,7 @@ class ContactTest extends TestCase
         ]);
     }
 
-    public function test_a_contact_can_be_deleted()
+    public function test_a_contact_can_be_deleted_by_its_owner()
     {
         $user = User::factory()->for(Person::factory())->create();
         $contact = Contact::factory()->for($user->person)->create();
@@ -181,9 +183,23 @@ class ContactTest extends TestCase
 
         $this->assertAuthenticatedOnly($route, 'delete');
 
-        $this->actingAs($user)
-            ->deleteJson($route)
-            ->assertNoContent();
+        $this->actingAs($user)->deleteJson($route)->assertNoContent();
+
+        $this->assertDatabaseMissing(Contact::class, [
+            'id' => $contact->id,
+        ]);
+    }
+
+    public function test_a_contact_can_be_deleted_by_an_admin()
+    {
+        $admin = User::factory()->admin()->for(Person::factory())->create();
+        $contact = Contact::factory()->for($admin->person)->create();
+
+        $route = route('contacts.destroy', $contact);
+
+        $this->assertAuthenticatedOnly($route, 'delete');
+
+        $this->actingAs($admin)->deleteJson($route)->assertNoContent();
 
         $this->assertDatabaseMissing(Contact::class, [
             'id' => $contact->id,
