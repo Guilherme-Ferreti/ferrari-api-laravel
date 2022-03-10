@@ -23,4 +23,11 @@ class UserFactory extends Factory
             'photo'             => $this->faker->imageUrl(),
         ];
     }
+
+    public function admin()
+    {
+        return $this->state([
+            
+        ]);
+    }
 }

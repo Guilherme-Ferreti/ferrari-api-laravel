@@ -56,6 +56,34 @@ class ContactTest extends TestCase
             );
     }
 
+    public function test_a_contact_can_be_retrieved()
+    {
+        $user = User::factory()->for(Person::factory())->create();
+        $contact = Contact::factory()->for($user->person)->create();
+
+        $route = route('contacts.show', $contact);
+
+        $this->assertAuthenticatedOnly($route, 'get');
+
+        $this->actingAs($user)
+            ->getJson($route)
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) => 
+                $json->where('id', $contact->id)
+                    ->where('email', $contact->email)
+                    ->where('message', $contact->message)
+                    ->where('personId', $contact->person_id)
+                    ->hasAll('person', 'createdAt', 'updatedAt')
+                    ->etc()
+            );
+    
+        $admin = User::factory()->admin()->for(Person::factory())->create();
+
+        $this->actingAs($admin)
+            ->getJson($route)
+            ->assertOk();
+    }
+
     public function test_a_contact_can_be_created()
     {
         $payload = [
