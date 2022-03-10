@@ -13,4 +13,9 @@ abstract class TestCase extends BaseTestCase
         $response = $this->{$method."Json"}($route);
         $response->assertUnauthorized();
     }
+
+    public function assertAdminsOnly(string $route, string $method = 'post'): void
+    {
+        $this->assertAuthenticatedOnly($route, $method);
+    }
 }

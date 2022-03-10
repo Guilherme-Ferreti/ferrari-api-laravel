@@ -7,10 +7,31 @@ use App\Models\User;
 use App\Models\Person;
 use App\Models\Contact;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Testing\Fluent\AssertableJson;
 
 class ContactTest extends TestCase
 {
     use DatabaseMigrations;
+
+    public function test_all_contacts_are_retrieved()
+    {
+        $user = User::factory()->for(Person::factory())->create();
+        Contact::factory(5)->for(Person::factory())->create();
+
+        $route = route('contacts.index');
+
+        $this->assertAdminsOnly($route, 'get');
+
+        $this->actingAs($user)
+            ->getJson($route)
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) => 
+                $json->has(5)
+                    ->first(fn (AssertableJson $json) => 
+                        $json->hasAll('id', 'email', 'message', 'personId', 'createdAt', 'updatedAt')
+                    )
+            );
+    }
 
     public function test_a_contact_can_be_created()
     {
