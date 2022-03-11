@@ -19,4 +19,17 @@ class PaymentSituationController extends Controller
     {
         return new PaymentSituationResource($paymentSituation);
     }
+
+    public function store(Request $request)
+    {
+        $this->authorize('create', PaymentSituation::class);
+        
+        $attributes = $request->validate([
+            'name' => 'required|string|max:255|unique:payment_situations',
+        ]);
+
+        $paymentSituation = PaymentSituation::create($attributes);
+
+        return new PaymentSituationResource($paymentSituation);
+    }
 }

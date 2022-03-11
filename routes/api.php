@@ -76,4 +76,8 @@ Route::prefix('/payment-situations')
     ->group(function () {
         Route::get('/', 'index');
         Route::get('/{paymentSituation}', 'show');
+
+        Route::middleware('auth')->group(function () {
+            Route::post('/', 'store');
+        });
     });
