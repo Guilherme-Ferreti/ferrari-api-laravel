@@ -31,7 +31,7 @@ class PaymentSituationController extends Controller
 
         $paymentSituation = PaymentSituation::create($attributes);
 
-        return new PaymentSituationResource($paymentSituation);
+        return $this->respondCreated(new PaymentSituationResource($paymentSituation));
     }
 
     public function update(Request $request, PaymentSituation $paymentSituation)
@@ -48,5 +48,14 @@ class PaymentSituationController extends Controller
         $paymentSituation->update($attributes);
 
         return new PaymentSituationResource($paymentSituation);
+    }
+
+    public function destroy(PaymentSituation $paymentSituation)
+    {
+        $this->authorize('delete', PaymentSituation::class);
+
+        $paymentSituation->delete();
+
+        return $this->respondNoContent();
     }
 }

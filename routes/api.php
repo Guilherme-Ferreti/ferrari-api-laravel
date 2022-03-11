@@ -78,4 +78,5 @@ Route::prefix('/payment-situations')
         Route::get('/{paymentSituation}', 'show');
         Route::post('/', 'store')->middleware('auth');
         Route::put('/{paymentSituation}', 'update')->middleware('auth');
+        Route::delete('/{paymentSituation}', 'destroy')->middleware('auth');
     });
