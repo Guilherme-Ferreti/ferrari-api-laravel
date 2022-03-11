@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\PaymentSituation;
 use App\Http\Resources\PaymentSituationResource;
+use Illuminate\Validation\Rule;
 
 class PaymentSituationController extends Controller
 {
@@ -23,12 +24,28 @@ class PaymentSituationController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', PaymentSituation::class);
-        
+
         $attributes = $request->validate([
             'name' => 'required|string|max:255|unique:payment_situations',
         ]);
 
         $paymentSituation = PaymentSituation::create($attributes);
+
+        return new PaymentSituationResource($paymentSituation);
+    }
+
+    public function update(Request $request, PaymentSituation $paymentSituation)
+    {
+        $this->authorize('update', PaymentSituation::class);
+
+        $attributes = $request->validate([
+            'name' => [
+                'required', 'string', 'max:255', 
+                Rule::unique(PaymentSituation::class, 'name')->ignoreModel($paymentSituation),
+            ],
+        ]);
+
+        $paymentSituation->update($attributes);
 
         return new PaymentSituationResource($paymentSituation);
     }
