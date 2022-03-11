@@ -41,15 +41,17 @@ Route::prefix('/auth')
     });
 
 Route::prefix('/contacts')
+    ->name('contacts.')
+    ->controller(ContactController::class)
     ->group(function () {
-        Route::post('/', [ContactController::class, 'store'])->name('contacts.store');
+        Route::post('/', 'store')->name('store');
 
         Route::middleware('auth')
             ->group(function () {
-                Route::get('/', [ContactController::class, 'index'])->name('contacts.index');
-                Route::get('/my-contacts', [ContactController::class, 'myContacts'])->name('contacts.my_contacts');
-                Route::get('/{contact}', [ContactController::class, 'show'])->name('contacts.show');
-                Route::delete('/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
+                Route::get('/', 'index')->name('index');
+                Route::get('/my-contacts', 'myContacts')->name('my_contacts');
+                Route::get('/{contact}', 'show')->name('show');
+                Route::delete('/{contact}', 'destroy')->name('destroy');
             });
     });
 
