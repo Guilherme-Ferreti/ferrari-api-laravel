@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchCepController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TimeOptionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,4 +57,12 @@ Route::middleware('auth')
     ->group(function () {
         Route::apiResource('addresses', AddressController::class);
         Route::get('/addresses/search-cep/{cep}', SearchCepController::class)->name('addresses.search_cep');
+    });
+
+Route::prefix('/time-options')
+    ->name('time_options.')
+    ->controller(TimeOptionController::class)
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store')->middleware('auth');
     });
