@@ -47,4 +47,19 @@ class TimeOptionTest extends TestCase
 
         $this->assertDatabaseHas(TimeOption::class, $payload);
     }
+
+    public function test_date_and_time_combination_can_be_registered_only_once()
+    {
+        $admin = User::factory()->admin()->for(Person::factory())->create();
+        $timeOption = TimeOption::factory()->create();
+
+        $payload = [
+            'day'  => $timeOption->day,
+            'time' => $timeOption->time,
+        ];
+
+        $this->actingAs($admin)
+            ->postJson(route('time_options.store'), $payload)
+            ->assertUnprocessable();
+    }
 }
