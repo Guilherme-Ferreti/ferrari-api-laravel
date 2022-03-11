@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->timestamps();
         });
+
+        Artisan::call('db:seed --class=PaymentSituationSeeder --force');
     }
 
     /**
