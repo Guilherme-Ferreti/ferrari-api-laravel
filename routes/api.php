@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchCepController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\PaymentSituationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimeOptionController;
 use Illuminate\Support\Facades\Route;
@@ -67,4 +68,12 @@ Route::prefix('/time-options')
     ->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store')->middleware('auth');
+    });
+
+Route::prefix('/payment-situations')
+    ->name('payment_situations.')
+    ->controller(PaymentSituationController::class)
+    ->group(function () {
+        Route::get('/', 'index');
+        Route::get('/{paymentSituation}', 'show');
     });
