@@ -58,4 +58,13 @@ class PaymentSituationController extends Controller
 
         return $this->respondNoContent();
     }
+
+    public function restore(PaymentSituation $paymentSituation)
+    {
+        $this->authorize('restore', PaymentSituation::class);
+
+        $paymentSituation->restore();
+
+        return new PaymentSituationResource($paymentSituation);
+    }
 }
