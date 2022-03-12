@@ -34,4 +34,19 @@ class ServiceController extends Controller
 
         return $this->respondCreated(new ServiceResource($service));
     }
+
+    public function update(Request $request, Service $service)
+    {
+        $this->authorize('update', $service);
+
+        $attributes = $request->validate([
+            'name'        => 'string|max:255',
+            'description' => 'string|max:255',
+            'price'       => 'numeric|min:0',
+        ]);
+
+        $service->update($attributes);
+
+        return new ServiceResource($service);
+    }
 }

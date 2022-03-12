@@ -60,4 +60,27 @@ class ServiceTest extends TestCase
 
         $this->assertDatabaseHas(Service::class, $payload);
     }
+
+    public function test_a_service_can_be_updated()
+    {
+        $admin = User::factory()->admin()->for(Person::factory())->create();
+        $service = Service::factory()->create();
+
+        $payload = [
+            'name'        => 'Ferrari Full Revision',
+            'description' => 'A full revision for your Ferrari!',
+            'price'       => 599.99,
+        ];
+
+        $route = route('services.update', $service);
+
+        $this->assertAdminsOnly($route, 'put');
+
+        $this->actingAs($admin)->putJson($route, $payload)->assertOk();
+
+        $this->assertDatabaseHas(Service::class, [
+            '_id' => $service->id,
+            ...$payload,
+        ]);
+    }
 }

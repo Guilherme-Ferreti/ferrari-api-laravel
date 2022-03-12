@@ -97,5 +97,6 @@ Route::prefix('/services')
         Route::middleware('auth')
             ->group(function () {
                 Route::post('/', 'store')->name('store');
+                Route::put('/{service}', 'update')->name('update');
             });
     });

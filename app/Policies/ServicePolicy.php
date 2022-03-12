@@ -13,4 +13,9 @@ class ServicePolicy
     {
         return $user->isAdmin();
     }
+
+    public function update(User $user)
+    {
+        return $user->isAdmin();
+    }
 }
