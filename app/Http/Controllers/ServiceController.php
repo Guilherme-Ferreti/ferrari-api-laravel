@@ -15,6 +15,11 @@ class ServiceController extends Controller
         return ServiceResource::collection($services);
     }
 
+    public function show(Service $service)
+    {
+        return new ServiceResource($service);
+    }
+
     public function store(Request $request)
     {
         $this->authorize('create', Service::class);

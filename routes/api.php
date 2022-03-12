@@ -92,7 +92,8 @@ Route::prefix('/services')
     ->controller(ServiceController::class)
     ->group(function () {
         Route::get('/', 'index')->name('index');
-        
+        Route::get('/{service}', 'show')->name('show');
+
         Route::middleware('auth')
             ->group(function () {
                 Route::post('/', 'store')->name('store');

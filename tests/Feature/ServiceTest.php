@@ -25,7 +25,21 @@ class ServiceTest extends TestCase
                         $json->hasAll('id', 'name', 'description', 'price', 'createdAt', 'updatedAt')
                     )
             );
+    }
 
+    public function test_a_service_can_be_retrieved()
+    {
+        $service = Service::factory()->create();
+
+        $this->getJson(route('services.show', $service))
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) => 
+                $json->where('id', $service->id)
+                    ->where('name', $service->name)
+                    ->where('description', $service->description)
+                    ->where('price', $service->price)
+                    ->hasAll('createdAt', 'updatedAt')
+            );
     }
 
     public function test_a_service_can_be_created()
