@@ -49,4 +49,13 @@ class ServiceController extends Controller
 
         return new ServiceResource($service);
     }
+
+    public function destroy(Service $service)
+    {
+        $this->authorize('delete', $service);
+
+        $service->delete();
+
+        return $this->respondNoContent();
+    }
 }

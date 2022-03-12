@@ -83,4 +83,20 @@ class ServiceTest extends TestCase
             ...$payload,
         ]);
     }
+
+    public function test_a_service_can_be_deleted()
+    {
+        $admin = User::factory()->admin()->for(Person::factory())->create();
+        $service = Service::factory()->create();
+
+        $route = route('services.destroy', $service);
+
+        $this->assertAdminsOnly($route, 'delete');
+
+        $this->actingAs($admin)->delete($route)->assertNoContent();
+
+        $this->assertSoftDeleted(Service::class, [
+            '_id' => $service->id,
+        ]);
+    }
 }

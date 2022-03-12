@@ -98,5 +98,6 @@ Route::prefix('/services')
             ->group(function () {
                 Route::post('/', 'store')->name('store');
                 Route::put('/{service}', 'update')->name('update');
+                Route::delete('/{service}', 'destroy')->name('destroy');
             });
     });
