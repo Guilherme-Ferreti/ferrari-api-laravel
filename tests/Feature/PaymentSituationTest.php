@@ -100,6 +100,8 @@ class PaymentSituationTest extends TestCase
 
         $this->actingAs($admin)->postJson($route)->assertOk();
 
-        $this->assertModelExists($paymentSituation);
+        $this->assertNotSoftDeleted(PaymentSituation::class, [
+            '_id' => $paymentSituation->id,
+        ]);
     }
 }
