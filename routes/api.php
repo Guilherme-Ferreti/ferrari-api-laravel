@@ -7,6 +7,7 @@ use App\Http\Controllers\SearchCepController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PaymentSituationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TimeOptionController;
 use Illuminate\Support\Facades\Route;
 
@@ -83,5 +84,15 @@ Route::prefix('/payment-situations')
                 Route::put('/{paymentSituation}', 'update')->name('update');
                 Route::delete('/{paymentSituation}', 'destroy')->name('destroy');
                 Route::post('/{paymentSituation}', 'restore')->withTrashed()->name('restore');
+            });
+    });
+
+Route::prefix('/services')
+    ->name('services.')
+    ->controller(ServiceController::class)
+    ->group(function () {
+        Route::middleware('auth')
+            ->group(function () {
+                Route::post('/', 'store')->name('store');
             });
     });
