@@ -58,4 +58,13 @@ class ServiceController extends Controller
 
         return $this->respondNoContent();
     }
+
+    public function restore(Service $service)
+    {
+        $this->authorize('restore', $service);
+
+        $service->restore();
+
+        return new ServiceResource($service);
+    }
 }

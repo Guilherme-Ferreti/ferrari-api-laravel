@@ -99,5 +99,6 @@ Route::prefix('/services')
                 Route::post('/', 'store')->name('store');
                 Route::put('/{service}', 'update')->name('update');
                 Route::delete('/{service}', 'destroy')->name('destroy');
+                Route::post('/{service}', 'restore')->withTrashed()->name('restore');
             });
     });

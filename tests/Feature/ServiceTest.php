@@ -99,4 +99,22 @@ class ServiceTest extends TestCase
             '_id' => $service->id,
         ]);
     }
+
+    public function test_a_service_can_be_restored()
+    {
+        $admin = User::factory()->admin()->for(Person::factory())->create();
+        $service = Service::factory()->create();
+
+        $service->delete();
+
+        $route = route('services.restore', $service);
+
+        $this->assertAdminsOnly($route);
+
+        $this->actingAs($admin)->post($route)->assertOk();
+
+        $this->assertNotSoftDeleted(Service::class, [
+            '_id' => $service->id,
+        ]);
+    }
 }
