@@ -91,6 +91,8 @@ Route::prefix('/services')
     ->name('services.')
     ->controller(ServiceController::class)
     ->group(function () {
+        Route::get('/', 'index')->name('index');
+        
         Route::middleware('auth')
             ->group(function () {
                 Route::post('/', 'store')->name('store');

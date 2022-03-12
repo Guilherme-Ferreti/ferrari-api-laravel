@@ -8,6 +8,13 @@ use App\Http\Resources\ServiceResource;
 
 class ServiceController extends Controller
 {
+    public function index()
+    {
+        $services = Service::all();
+
+        return ServiceResource::collection($services);
+    }
+
     public function store(Request $request)
     {
         $this->authorize('create', Service::class);
