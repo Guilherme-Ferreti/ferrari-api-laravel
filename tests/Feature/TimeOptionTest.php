@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Models\Person;
 use Tests\TestCase;
-use App\Models\TimeOption;
 use App\Models\User;
+use App\Models\Person;
+use App\Models\TimeOption;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 

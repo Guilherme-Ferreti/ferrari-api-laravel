@@ -74,14 +74,14 @@ Route::prefix('/payment-situations')
     ->name('payment_situations.')
     ->controller(PaymentSituationController::class)
     ->group(function () {
-        Route::get('/', 'index');
-        Route::get('/{paymentSituation}', 'show');
+        Route::get('/', 'index')->name('index');
+        Route::get('/{paymentSituation}', 'show')->name('show');
 
         Route::middleware('auth')
             ->group(function () {
-                Route::post('/', 'store');
-                Route::put('/{paymentSituation}', 'update');
-                Route::delete('/{paymentSituation}', 'destroy');
-                Route::post('/{paymentSituation}', 'restore')->withTrashed();
+                Route::post('/', 'store')->name('store');
+                Route::put('/{paymentSituation}', 'update')->name('update');
+                Route::delete('/{paymentSituation}', 'destroy')->name('destroy');
+                Route::post('/{paymentSituation}', 'restore')->withTrashed()->name('restore');
             });
     });

@@ -11,12 +11,12 @@ class PaymentSituationSeeder extends Seeder
     public function run()
     {
         $paymentSituations = [
-            'Aguardando Pagamento', 
-            'Cancelado', 
-            'Pagamento Aprovado', 
-            'Pagamento Estornado', 
-            'Em mediação', 
-            'Enviado',
+            'Payment Pending', 
+            'Canceled', 
+            'Payment Approved', 
+            'Payment Reversed', 
+            'Handling', 
+            'Sent',
         ];
 
         array_map(
