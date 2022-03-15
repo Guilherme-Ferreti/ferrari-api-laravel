@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\AddressController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\SearchCepController;
-use App\Http\Controllers\PasswordController;
-use App\Http\Controllers\PaymentSituationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\SearchCepController;
 use App\Http\Controllers\TimeOptionController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentSituationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +68,13 @@ Route::prefix('/time-options')
     ->controller(TimeOptionController::class)
     ->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::post('/', 'store')->name('store')->middleware('auth');
+        
+        Route::middleware('auth')
+            ->group(function () {
+                Route::post('/', 'store')->name('store');
+                Route::delete('/{timeOption}', 'destroy')->name('destroy');
+                Route::post('/{timeOption}', 'restore')->withTrashed()->name('restore');
+            });
     });
 
 Route::prefix('/payment-situations')

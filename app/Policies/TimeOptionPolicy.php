@@ -13,4 +13,14 @@ class TimeOptionPolicy
     {
         return $user->isAdmin();
     }
+
+    public function delete(User $user)
+    {
+        return $user->isAdmin();
+    }
+
+    public function restore(User $user)
+    {
+        return $user->isAdmin();
+    }
 }

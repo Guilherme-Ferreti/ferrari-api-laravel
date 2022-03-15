@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\TimeOptionResource;
 use App\Models\TimeOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\TimeOptionResource;
 
 class TimeOptionController extends Controller
 {
@@ -36,5 +36,23 @@ class TimeOptionController extends Controller
         $timeOption = TimeOption::create($validator->validated());
 
         return $this->respondCreated(new TimeOptionResource($timeOption));
+    }
+
+    public function destroy(TimeOption $timeOption)
+    {
+        $this->authorize('delete', $timeOption);
+
+        $timeOption->delete();
+
+        return $this->respondNoContent();
+    }
+
+    public function restore(TimeOption $timeOption)
+    {
+        $this->authorize('restore', $timeOption);
+
+        $timeOption->restore();
+
+        return new TimeOptionResource($timeOption);
     }
 }

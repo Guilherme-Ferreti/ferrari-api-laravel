@@ -62,4 +62,38 @@ class TimeOptionTest extends TestCase
             ->postJson(route('time_options.store'), $payload)
             ->assertUnprocessable();
     }
+
+    public function test_a_time_option_can_be_deleted()
+    {
+        $admin = User::factory()->admin()->for(Person::factory())->create();
+        $timeOption = TimeOption::factory()->create();
+
+        $route = route('time_options.destroy', $timeOption);
+
+        $this->assertAdminsOnly($route, 'delete');
+
+        $this->actingAs($admin)->delete($route)->assertNoContent();
+
+        $this->assertSoftDeleted(TimeOption::class, [
+            '_id' => $timeOption->id,
+        ]);
+    }
+
+    public function test_a_time_option_can_be_restored()
+    {
+        $admin = User::factory()->admin()->for(Person::factory())->create();
+        $timeOption = TimeOption::factory()->create();
+
+        $timeOption->delete();
+
+        $route = route('time_options.restore', $timeOption);
+
+        $this->assertAdminsOnly($route);
+
+        $this->actingAs($admin)->post($route)->assertOk();
+
+        $this->assertNotSoftDeleted(TimeOption::class, [
+            '_id' => $timeOption->id,
+        ]);
+    }
 }
