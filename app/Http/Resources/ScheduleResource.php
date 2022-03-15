@@ -11,11 +11,12 @@ class ScheduleResource extends JsonResource
     {
         return [
             'id'               => $this->id,
-            'timeOptionId'     => $this->time_option_id,
-            'billingAddressId' => $this->billing_address_id,
             'scheduleAt'       => $this->schedule_at,
             'installments'     => $this->installments,
             'total'            => $this->total,
+            'timeOptionId'     => $this->time_option_id,
+            'billingAddressId' => $this->billing_address_id,
+            'personId'         => $this->person_id,
             'services'         => $this->services->map(fn (Service $service) => [
                 'id'    => $service->id,
                 'name'  => $service->name,

@@ -19,6 +19,8 @@ class ScheduleController extends Controller
 
         $attributes['total'] = Service::whereIn('_id', $attributes['services'])->sum('price');
 
+        $attributes['person_id'] = auth()->user()->person_id;
+
         $schedule = Schedule::create($attributes);
 
         $schedule->services()->attach($attributes['services']);

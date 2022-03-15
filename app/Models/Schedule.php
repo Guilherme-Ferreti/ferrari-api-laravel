@@ -13,11 +13,12 @@ class Schedule extends Model
     const MAX_ALLOWED_INSTALLMENTS = 10;
 
     protected $fillable = [
-        'time_option_id',
-        'billing_address_id',
         'schedule_at',
         'installments',
         'total',
+        'time_option_id',
+        'billing_address_id',
+        'person_id',
     ];
 
     protected $casts = [
