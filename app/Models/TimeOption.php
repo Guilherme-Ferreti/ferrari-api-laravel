@@ -14,4 +14,8 @@ class TimeOption extends Model
         'day',
         'time',
     ];
+
+    protected $casts = [
+        'day' => 'integer',
+    ];
 }

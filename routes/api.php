@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SearchCepController;
 use App\Http\Controllers\TimeOptionController;
 use App\Http\Controllers\PaymentSituationController;
@@ -107,4 +108,12 @@ Route::prefix('/services')
                 Route::delete('/{service}', 'destroy')->name('destroy');
                 Route::post('/{service}', 'restore')->withTrashed()->name('restore');
             });
+    });
+
+Route::prefix('/schedules')
+    ->name('schedules.')
+    ->controller(ScheduleController::class)
+    ->middleware('auth')
+    ->group(function () {
+        Route::post('/', 'store');
     });
