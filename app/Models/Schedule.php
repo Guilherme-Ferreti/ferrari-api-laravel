@@ -30,4 +30,19 @@ class Schedule extends Model
     {
         return $this->belongsToMany(Service::class);
     }
+
+    public function timeOption()
+    {
+        return $this->belongsTo(TimeOption::class);
+    }
+
+    public function billingAddress()
+    {
+        return $this->belongsTo(Address::class, 'billing_address_id');
+    }
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
 }

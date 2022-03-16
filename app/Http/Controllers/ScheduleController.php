@@ -25,6 +25,8 @@ class ScheduleController extends Controller
 
         $schedule->services()->attach($attributes['services']);
 
+        $schedule->load('timeOption', 'billingAddress', 'person', 'services');
+
         return new ScheduleResource($schedule);
     }
 }
