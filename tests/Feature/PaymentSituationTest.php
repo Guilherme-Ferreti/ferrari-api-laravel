@@ -57,7 +57,7 @@ class PaymentSituationTest extends TestCase
         $this->assertDatabaseHas(PaymentSituation::class, $payload);
     }
 
-    public function test_apayment_situation_can_be_updated()
+    public function test_a_payment_situation_can_be_updated()
     {
         $admin = User::factory()->admin()->for(Person::factory())->create();
         $paymentSituation = PaymentSituation::factory()->create();
