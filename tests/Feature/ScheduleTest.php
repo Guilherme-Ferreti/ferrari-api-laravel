@@ -122,7 +122,12 @@ class ScheduleTest extends TestCase
             'schedule_at'        => $payload['scheduleAt'],
             'installments'       => $payload['installments'],
             'total'              => $services->sum('price'),
-            'service_ids'        => $services->pluck('id')->toArray(),
         ]);
+
+        $scheduleServices = Schedule::first()->services->pluck('id')->toArray();
+
+        $services->each(fn (Service $service) => 
+            $this->assertContains($service->id, $scheduleServices)
+        );
     }
 }
