@@ -66,6 +66,35 @@ class ScheduleTest extends TestCase
             );
     }
 
+    public function test_a_schedule_can_be_retrieved()
+    {
+        $user = User::factory()->for(Person::factory())->create();
+        $schedule = Schedule::factory()->for($user->person)->has(Service::factory(3))->create();
+
+        $route = route('schedules.show', $schedule->id);
+
+        $this->assertAuthenticatedOnly($route, 'get');
+
+        $this->actingAs($user)
+            ->get($route)
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) =>
+                $json->where('id', $schedule->id)
+                    ->where('scheduleAt', $schedule->schedule_at)
+                    ->where('installments', $schedule->installments)
+                    ->where('total', $schedule->total)
+                    ->where('timeOptionId', $schedule->time_option_id)
+                    ->where('billingAddressId', $schedule->billing_address_id)
+                    ->where('personId', $schedule->person_id)
+                    ->hasAll('createdAt', 'updatedAt', 'timeOption', 'billingAddress', 'person')
+                    ->has('services', 3)
+                    ->etc()
+            );
+
+        $forbiddenUser = User::factory()->for(Person::factory())->create();
+        $this->actingAs($forbiddenUser)->get($route)->assertForbidden();
+    }
+
     public function test_a_schedule_can_be_created()
     {
         $person = Person::factory()->has(User::factory())->has(Address::factory())->create();

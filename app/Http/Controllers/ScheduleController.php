@@ -25,6 +25,15 @@ class ScheduleController extends Controller
         return ScheduleResource::collection($schedules);
     }
 
+    public function show(Schedule $schedule)
+    {
+        $this->authorize('view', $schedule);
+        
+        $schedule->load('timeOption', 'billingAddress', 'person', 'services');
+
+        return new ScheduleResource($schedule);
+    }
+
     public function store(StoreScheduleRequest $request)
     {
         $attributes = $request->toDTO()->toArray();

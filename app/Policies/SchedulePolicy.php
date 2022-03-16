@@ -13,4 +13,8 @@ class SchedulePolicy
     {
         return $user->isAdmin();
     }
+    public function view(User $user, $schedule)
+    {
+        return $user->person_id == $schedule->person_id || $user->isAdmin();
+    }
 }
