@@ -18,6 +18,13 @@ class ScheduleController extends Controller
         return ScheduleResource::collection(Schedule::latest()->paginate());
     }
 
+    public function mySchedules()
+    {
+        $schedules = Schedule::where('person_id', auth()->user()->person_id)->latest()->paginate();
+
+        return ScheduleResource::collection($schedules);
+    }
+
     public function store(StoreScheduleRequest $request)
     {
         $attributes = $request->toDTO()->toArray();

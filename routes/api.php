@@ -116,5 +116,6 @@ Route::prefix('/schedules')
     ->middleware('auth')
     ->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/my-schedules', 'mySchedules')->name('my_schedules');
         Route::post('/', 'store')->name('store');
     });
