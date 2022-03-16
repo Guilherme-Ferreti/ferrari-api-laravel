@@ -11,6 +11,13 @@ use App\Http\Requests\StoreScheduleRequest;
 
 class ScheduleController extends Controller
 {
+    public function index()
+    {
+        $this->authorize('viewAny', Schedule::class);
+        
+        return ScheduleResource::collection(Schedule::latest()->paginate());
+    }
+
     public function store(StoreScheduleRequest $request)
     {
         $attributes = $request->toDTO()->toArray();
