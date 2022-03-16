@@ -10,10 +10,35 @@ use App\Models\Schedule;
 use App\Models\Service;
 use App\Models\TimeOption;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Testing\Fluent\AssertableJson;
 
 class ScheduleTest extends TestCase
 {
     use DatabaseMigrations;
+
+    public function test_all_schedules_can_be_retrieved()
+    {
+        $admin = User::factory()->admin()->for(Person::factory())->create();
+        Schedule::factory(5)->has(Service::factory(3))->create();
+
+        $route = route('schedules.index');
+
+        $this->assertAdminsOnly($route, 'get');
+
+        $this->actingAs($admin)
+            ->getJson($route)
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) =>
+                $json->has('data', 5)
+                    ->has('data.0', fn (AssertableJson $json) =>
+                        $json->hasAll(
+                            'id', 'scheduleAt', 'installments', 'total', 'createdAt', 'updatedAt',
+                            'timeOptionId', 'billingAddressId', 'personId',
+                        )
+                )
+                ->etc()
+            );
+    }
 
     public function test_a_schedule_can_be_created()
     {

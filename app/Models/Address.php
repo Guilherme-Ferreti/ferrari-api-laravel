@@ -20,4 +20,9 @@ class Address extends Model
         'zipcode',
         'person_id',
     ];
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
 }
