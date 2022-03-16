@@ -40,6 +40,32 @@ class ScheduleTest extends TestCase
             );
     }
 
+    public function test_all_user_schedules_can_be_retrieved()
+    {
+        $user = User::factory()->for(Person::factory())->create();
+        Schedule::factory(2)->for($user->person)->has(Service::factory(3))->create();
+        
+        Schedule::factory(5)->has(Service::factory(3))->create();
+
+        $route = route('schedules.my_schedules');
+
+        $this->assertAuthenticatedOnly($route, 'get');
+
+        $this->actingAs($user)
+            ->getJson($route)
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) =>
+                $json->has('data', 2)
+                    ->has('data.0', fn (AssertableJson $json) =>
+                        $json->hasAll(
+                            'id', 'scheduleAt', 'installments', 'total', 'createdAt', 'updatedAt',
+                            'timeOptionId', 'billingAddressId', 'personId',
+                        )
+                )
+                ->etc()
+            );
+    }
+
     public function test_a_schedule_can_be_created()
     {
         $person = Person::factory()->has(User::factory())->has(Address::factory())->create();
