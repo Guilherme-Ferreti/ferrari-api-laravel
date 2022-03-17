@@ -13,8 +13,8 @@ class ContactResource extends JsonResource
             'email'      => $this->email,
             'message'    => $this->message,
             'personId'   => $this->person_id,
-            'createdAt'  => $this->created_at,
-            'updatedAt'  => $this->updated_at,
+            'createdAt'  => $this->created_at->toDateTimeString(),
+            'updatedAt'  => $this->updated_at->toDateTimeString(),
 
             'person'     => new PersonResource($this->whenLoaded('person')),
         ];

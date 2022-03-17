@@ -12,8 +12,8 @@ class TimeOptionResource extends JsonResource
             'id'        => $this->id,
             'day'       => $this->day,
             'time'      => $this->time,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
+            'createdAt' => $this->created_at->toDateTimeString(),
+            'updatedAt' => $this->updated_at->toDateTimeString(),
         ];
     }
 }

@@ -11,8 +11,8 @@ class PaymentSituationResource extends JsonResource
         return [
             'id'        => $this->id,
             'name'      => $this->name,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
+            'createdAt' => $this->created_at->toDateTimeString(),
+            'updatedAt' => $this->updated_at->toDateTimeString(),
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class UserResource extends JsonResource
 {
@@ -13,8 +14,8 @@ class UserResource extends JsonResource
             'email'     => $this->email,
             'photo'     => $this->photo ? asset('storage/' . $this->photo) : null,
             'personId'  => $this->person_id,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
+            'createdAt' => $this->created_at->toDateTimeString(),
+            'updatedAt' => $this->updated_at->toDateTimeString(),
 
             'personId' => $this->person_id,
             'person'   => new PersonResource($this->whenLoaded('person')),
