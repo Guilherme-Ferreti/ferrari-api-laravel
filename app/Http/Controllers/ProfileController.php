@@ -33,7 +33,9 @@ class ProfileController extends Controller
             'photo' => 'required|image',
         ]);
 
-        Storage::disk('public')->delete(auth()->user()->photo);
+        if (auth()->user()->photo) {
+            Storage::disk('public')->delete(auth()->user()->photo);
+        }
 
         auth()->user()->update([
             'photo' => $request->file('photo')->store('photos', ['disk' => 'public']),
@@ -44,11 +46,13 @@ class ProfileController extends Controller
 
     public function deletePhoto()
     {
-        Storage::disk('public')->delete(auth()->user()->photo);
+        if (auth()->user()->photo) {
+            Storage::disk('public')->delete(auth()->user()->photo);
 
-        auth()->user()->update([
-            'photo' => null,
-        ]);
+            auth()->user()->update([
+                'photo' => null,
+            ]);
+        }
         
         return new UserResource(auth()->user());
     }
