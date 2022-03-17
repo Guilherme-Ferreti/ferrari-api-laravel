@@ -10,7 +10,14 @@ class PaymentSituation extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const PAYMENT_PENDING = 1;
+    const CANCELED = 2;
+    const PAYMENT_APPROVED = 3;
+    const PAYMENT_REVERSED = 4;
+    const HANDLING = 5;
+    const SENT = 6;
+
     protected $fillable = [
-        'name',
+        '_id', 'name',
     ];
 }

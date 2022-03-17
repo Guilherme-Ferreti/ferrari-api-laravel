@@ -36,7 +36,7 @@ class ScheduleController extends Controller
     {
         $attributes = $request->toDTO()->toArray();
 
-        $attributes['payment_situation_id'] = PaymentSituation::whereName('Payment Pending')->value('_id');
+        $attributes['payment_situation_id'] = PaymentSituation::PAYMENT_PENDING;
 
         $attributes['total'] = Service::whereIn('_id', $attributes['services'])->sum('price');
 

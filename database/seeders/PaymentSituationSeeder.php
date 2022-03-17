@@ -11,17 +11,19 @@ class PaymentSituationSeeder extends Seeder
     public function run()
     {
         $paymentSituations = [
-            'Payment Pending', 
-            'Canceled', 
-            'Payment Approved', 
-            'Payment Reversed', 
-            'Handling', 
-            'Sent',
+            1 => 'Payment Pending', 
+            2 => 'Canceled', 
+            3 => 'Payment Approved', 
+            4 => 'Payment Reversed', 
+            5 => 'Handling', 
+            6 => 'Sent',
         ];
 
-        array_map(
-            fn ($item) => PaymentSituation::create(['name' => $item]), 
-            $paymentSituations
-        );
+        foreach ($paymentSituations as $key => $name) {
+            PaymentSituation::create([
+                '_id' => $key,
+                'name' => $name,
+            ]);
+        }
     }
 }
