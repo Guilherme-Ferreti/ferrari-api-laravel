@@ -14,7 +14,7 @@ class ScheduleController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Schedule::class);
-        
+
         return ScheduleResource::collection(Schedule::latest()->paginate());
     }
 
@@ -29,9 +29,7 @@ class ScheduleController extends Controller
     {
         $this->authorize('view', $schedule);
 
-        $schedule->load('timeOption', 'billingAddress', 'person', 'services');
-
-        return new ScheduleResource($schedule);
+        return $this->scheduleResponse($schedule);
     }
 
     public function store(StoreScheduleRequest $request)
@@ -48,9 +46,7 @@ class ScheduleController extends Controller
 
         $schedule->services()->attach($attributes['services']);
 
-        $schedule->load('timeOption', 'billingAddress', 'person', 'services');
-
-        return $this->respondCreated(new ScheduleResource($schedule));
+        return $this->respondCreated($this->scheduleResponse($schedule));
     }
 
     public function markAsCompleted(Schedule $schedule)
@@ -58,6 +54,13 @@ class ScheduleController extends Controller
         $this->authorize('markAsCompleted', $schedule);
 
         $schedule->markAsCompleted();
+
+        return $this->scheduleResponse($schedule);
+    }
+
+    private function scheduleResponse($schedule): ScheduleResource
+    {
+        $schedule->load('timeOption', 'billingAddress', 'person', 'services');
 
         return new ScheduleResource($schedule);
     }
