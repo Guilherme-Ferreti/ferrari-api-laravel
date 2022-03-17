@@ -32,7 +32,7 @@ class ScheduleTest extends TestCase
                 $json->has('data', 5)
                     ->has('data.0', fn (AssertableJson $json) =>
                         $json->hasAll(
-                            'id', 'scheduleAt', 'installments', 'total', 'createdAt', 'updatedAt',
+                            'id', 'scheduleAt', 'installments', 'total', 'completedAt', 'createdAt', 'updatedAt',
                             'timeOptionId', 'billingAddressId', 'personId',
                         )
                 )
@@ -58,7 +58,7 @@ class ScheduleTest extends TestCase
                 $json->has('data', 2)
                     ->has('data.0', fn (AssertableJson $json) =>
                         $json->hasAll(
-                            'id', 'scheduleAt', 'installments', 'total', 'createdAt', 'updatedAt',
+                            'id', 'scheduleAt', 'installments', 'total', 'completedAt', 'createdAt', 'updatedAt',
                             'timeOptionId', 'billingAddressId', 'personId',
                         )
                 )
@@ -86,7 +86,7 @@ class ScheduleTest extends TestCase
                     ->where('timeOptionId', $schedule->time_option_id)
                     ->where('billingAddressId', $schedule->billing_address_id)
                     ->where('personId', $schedule->person_id)
-                    ->hasAll('createdAt', 'updatedAt', 'timeOption', 'billingAddress', 'person')
+                    ->hasAll('completedAt', 'createdAt', 'updatedAt', 'timeOption', 'billingAddress', 'person')
                     ->has('services', 3)
                     ->etc()
             );
@@ -129,5 +129,29 @@ class ScheduleTest extends TestCase
         $services->each(fn (Service $service) => 
             $this->assertContains($service->id, $scheduleServices)
         );
+    }
+
+    public function test_a_schedule_can_be_marked_as_completed()
+    {
+        $admin = User::factory()->admin()->for(Person::factory())->create();
+        $schedule = Schedule::factory()->create();
+
+        $route = route('schedules.mark_as_completed', $schedule);
+
+        $this->assertAdminsOnly($route);
+
+        $this->actingAs($admin)->post($route)->assertOk();
+
+        $this->assertTrue($schedule->refresh()->isCompleted());
+    }
+
+    public function test_a_completed_schedule_cannot_be_marked_as_completed()
+    {
+        $admin = User::factory()->admin()->for(Person::factory())->create();
+        $schedule = Schedule::factory()->create();
+
+        $schedule->markAsCompleted();
+
+        $this->actingAs($admin)->post(route('schedules.mark_as_completed', $schedule))->assertForbidden();
     }
 }
