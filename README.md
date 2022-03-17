@@ -1,6 +1,6 @@
 # Laravel Ferrari API
 
-This project, built with Laravel Framework and MongoDB, mimics Hcode's Ferrari API originally built with NestJS Framework and MySQL.
+This project is built with Laravel Framework and MongoDB. It mimics Hcode's Ferrari API originally built with NestJS Framework and MySQL.
 
 ## API Documentation
 
