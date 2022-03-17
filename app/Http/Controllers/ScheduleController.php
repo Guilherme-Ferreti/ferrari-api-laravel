@@ -28,7 +28,7 @@ class ScheduleController extends Controller
     public function show(Schedule $schedule)
     {
         $this->authorize('view', $schedule);
-        
+
         $schedule->load('timeOption', 'billingAddress', 'person', 'services');
 
         return new ScheduleResource($schedule);
@@ -49,6 +49,15 @@ class ScheduleController extends Controller
         $schedule->services()->attach($attributes['services']);
 
         $schedule->load('timeOption', 'billingAddress', 'person', 'services');
+
+        return $this->respondCreated(new ScheduleResource($schedule));
+    }
+
+    public function markAsCompleted(Schedule $schedule)
+    {
+        $this->authorize('markAsCompleted', $schedule);
+
+        $schedule->markAsCompleted();
 
         return new ScheduleResource($schedule);
     }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->dateTime('schedule_at');
             $table->unsignedFloat('total', 10);
             $table->unsignedTinyInteger('installments')->default(1);
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });
     }

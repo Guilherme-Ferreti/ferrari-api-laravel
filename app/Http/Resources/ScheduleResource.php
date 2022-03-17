@@ -13,6 +13,7 @@ class ScheduleResource extends JsonResource
             'scheduleAt'       => $this->schedule_at,
             'installments'     => $this->installments,
             'total'            => $this->total,
+            'completedAt'      => $this->completed_at,
             'createdAt'        => $this->created_at,
             'updatedAt'        => $this->updated_at,
 

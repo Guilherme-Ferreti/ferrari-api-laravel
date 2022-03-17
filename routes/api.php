@@ -119,4 +119,5 @@ Route::prefix('/schedules')
         Route::get('/my-schedules', 'mySchedules')->name('my_schedules');
         Route::get('/{schedule}', 'show')->name('show');
         Route::post('/', 'store')->name('store');
+        Route::post('/{schedule}/completed', 'markAsCompleted')->name('mark_as_completed');
     });

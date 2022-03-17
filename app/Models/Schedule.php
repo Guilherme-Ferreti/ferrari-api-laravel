@@ -5,6 +5,7 @@ namespace App\Models;
 use Jenssegers\Mongodb\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 
 class Schedule extends Model
 {
@@ -26,6 +27,10 @@ class Schedule extends Model
         'total' => 'float',
     ];
 
+    protected $dates = [
+        'completed_at',
+    ];
+
     public function services()
     {
         return $this->belongsToMany(Service::class);
@@ -44,5 +49,17 @@ class Schedule extends Model
     public function person()
     {
         return $this->belongsTo(Person::class);
+    }
+
+    public function markAsCompleted(): void
+    {
+        $this->completed_at = now();
+
+        $this->save();
+    }
+
+    public function isCompleted(): bool
+    {
+        return ! is_null($this->completed_at);
     }
 }
