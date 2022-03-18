@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Service;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
-use App\Models\PaymentSituation;
+use App\Actions\Schedule\StoreSchedule;
 use App\Http\Resources\ScheduleResource;
 use App\Http\Requests\StoreScheduleRequest;
 
@@ -32,19 +31,9 @@ class ScheduleController extends Controller
         return $this->scheduleResponse($schedule);
     }
 
-    public function store(StoreScheduleRequest $request)
+    public function store(StoreScheduleRequest $request, StoreSchedule $storeSchedule)
     {
-        $attributes = $request->toDTO()->toArray();
-
-        $attributes['payment_situation_id'] = PaymentSituation::PAYMENT_PENDING;
-
-        $attributes['total'] = Service::whereIn('_id', $attributes['services'])->sum('price');
-
-        $attributes['person_id'] = auth()->user()->person_id;
-
-        $schedule = Schedule::create($attributes);
-
-        $schedule->services()->attach($attributes['services']);
+        $schedule = $storeSchedule($request->toDTO());
 
         return $this->respondCreated($this->scheduleResponse($schedule));
     }
