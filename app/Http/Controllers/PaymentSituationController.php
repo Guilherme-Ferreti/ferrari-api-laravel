@@ -29,7 +29,7 @@ class PaymentSituationController extends Controller
             'name' => 'required|string|max:255|unique:payment_situations',
         ]);
 
-        $attributes['_id'] = PaymentSituation::count() + 1;
+        $attributes['_id'] = (string) (PaymentSituation::count() + 1);
 
         $paymentSituation = PaymentSituation::create($attributes);
 
