@@ -12,33 +12,42 @@ class SameDayOfWeekAsTimeOptionTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_rule_passes_when_given_valid_data()
+    /**
+     * @dataProvider dayOfWeekAndDateProvider
+     */
+    public function test_rule_works_correctly(int $dayOfWeek, string $date, bool $expected)
     {
         $rules = [
-            'scheduleAt' => new SameDayOfWeekAsTimeOption,
             'timeOptionId' => 'required',
+            'scheduleAt' => new SameDayOfWeekAsTimeOption,
         ];
 
         $input = [
-            'scheduleAt' => '2022-03-21', // Monday
-            'timeOptionId' => TimeOption::factory()->create(['day' => 1])->id,
+            'timeOptionId' => TimeOption::factory()->create(['day' => $dayOfWeek])->id,
+            'scheduleAt' => $date,
         ];
 
-        $this->assertTrue(Validator::make($input, $rules)->passes());
+        $this->assertSame($expected, Validator::make($input, $rules)->passes());
     }
 
-    public function test_rule_fails_when_given_invalid_data()
+    public function dayOfWeekAndDateProvider()
     {
-        $rules = [
-            'scheduleAt' => new SameDayOfWeekAsTimeOption,
-            'timeOptionId' => 'required',
-        ];
+        return [
+            'Valid Sunday'    => [0, '2022-03-20', true],
+            'Valid Monday'    => [1, '2022-03-21', true],
+            'Valid Tuesday'   => [2, '2022-03-22', true],
+            'Valid Wednesday' => [3, '2022-03-23', true],
+            'Valid Thursday'  => [4, '2022-03-24', true],
+            'Valid Friday'    => [5, '2022-03-25', true],
+            'Valid Saturday'  => [6, '2022-03-26', true],
 
-        $input = [
-            'scheduleAt' => '2022-03-22', // Tuesday
-            'timeOptionId' => TimeOption::factory()->create(['day' => 1])->id,
+            'Invalid Sunday'    => [0, '2022-03-19', false],
+            'Invalid Monday'    => [1, '2022-03-20', false],
+            'Invalid Tuesday'   => [2, '2022-03-21', false],
+            'Invalid Wednesday' => [3, '2022-03-22', false],
+            'Invalid Thursday'  => [4, '2022-03-23', false],
+            'Invalid Friday'    => [5, '2022-03-24', false],
+            'Invalid Saturday'  => [6, '2022-03-25', false],
         ];
-
-        $this->assertTrue(Validator::make($input, $rules)->fails());
     }
 }
