@@ -21,7 +21,7 @@ class PaymentSituationSeeder extends Seeder
 
         foreach ($paymentSituations as $key => $name) {
             PaymentSituation::create([
-                '_id' => $key,
+                '_id' => (string) $key,
                 'name' => $name,
             ]);
         }
