@@ -14,12 +14,12 @@ class ScheduleController extends Controller
     {
         $this->authorize('viewAny', Schedule::class);
 
-        return ScheduleResource::collection(Schedule::latest()->paginate());
+        return ScheduleResource::collection(Schedule::latest()->simplePaginate());
     }
 
     public function mySchedules()
     {
-        $schedules = Schedule::where('person_id', auth()->user()->person_id)->latest()->paginate();
+        $schedules = Schedule::where('person_id', auth()->user()->person_id)->latest()->simplePaginate();
 
         return ScheduleResource::collection($schedules);
     }
