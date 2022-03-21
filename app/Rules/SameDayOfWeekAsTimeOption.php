@@ -22,13 +22,9 @@ class SameDayOfWeekAsTimeOption implements Rule, DataAwareRule
     {
         $timeOption = TimeOption::find($this->data['timeOptionId']);
 
-        if (! $timeOption) {
-            return false;
-        }
-
         $carbon = Carbon::createFromFormat('Y-m-d', $value);
 
-        return $carbon->dayOfWeek == $timeOption->day;
+        return $carbon->dayOfWeek == $timeOption?->day;
     }
 
     /**
