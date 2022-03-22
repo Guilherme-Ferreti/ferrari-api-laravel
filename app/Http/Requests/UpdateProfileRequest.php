@@ -28,7 +28,7 @@ class UpdateProfileRequest extends FormRequest
         return [
             'email'     => ['bail', 'required', 'string', 'max:255', 'email', Rule::unique('users', 'email')->ignore(request()->user())],
             'name'      => 'bail|required|string|max:255',
-            'birthAt'   => 'bail|nullable|date_format:Y-m-d',
+            'birthAt'   => 'bail|required|nullable|date_format:Y-m-d',
             'phone'     => 'bail|required|string|max:16|regex:/^\d+$/',
             'document'  => 'bail|required|string|max:16|regex:/^\d+$/',
         ];

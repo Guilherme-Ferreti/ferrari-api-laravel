@@ -28,7 +28,7 @@ class RegisterRequest extends FormRequest
         return [
             'email'     => 'bail|required|string|max:255|email|unique:users',
             'name'      => 'bail|required|string|max:255',
-            'birthAt'   => 'bail|nullable|date_format:Y-m-d',
+            'birthAt'   => 'bail|required|nullable|date_format:Y-m-d',
             'password'  => ['bail', 'required', 'string', Password::defaults()],
             'phone'     => 'bail|required|string|max:16|regex:/^\d+$/',
             'document'  => 'bail|required|string|max:16|regex:/^\d+$/',
