@@ -1,0 +1,2977 @@
+_type: export
+__export_format: 4
+__export_date: 2022-03-22T23:25:25.701Z
+__export_source: insomnia.desktop.app:v2022.2.0
+resources:
+  - _id: req_71e55c65bed34048aef1f07cb1ef8b97
+    parentId: fld_acf8284388f14f27bba8ad311ed2eb82
+    modified: 1647986807979
+    created: 1646090643894
+    url: "{{ _.baseUrl }}/auth/register"
+    name: Register
+    description: >
+      #### **Description**
+
+      Registers a user into the application.
+
+
+      #### **Body Parameters**
+
+
+      | Parameter | Type | Required | Description
+
+      |--|--|--|--
+
+      | email | String | Yes | User's e-mail address.
+
+      | name | String | Yes | User's real name.
+
+      | birthAt | Date | Yes | User's birthday. May be null.
+
+      | password | String | Yes | Chosen password.
+
+      | phone | String | Yes | User's phone number.
+
+      | document | String | Yes | User's RG or CPF.
+
+
+      ```response:200
+
+      {
+        "user":{
+          "id":"6238feef516c00004c00599b",
+          "email":"guilherme@gmail.com",
+          "photo":null,
+          "personId":"6238feef516c00004c00599a",
+          "createdAt":"2022-03-21 22:40:47",
+          "updatedAt":"2022-03-21 22:40:47",
+          "person":{
+            "id":"6238feef516c00004c00599a",
+            "name":"John Doe",
+            "birthAt":"2000-01-01",
+            "phone":"11987654321",
+            "document":"12312312",
+            "createdAt":"2022-03-21 22:40:47",
+            "updatedAt":"2022-03-21 22:40:47"
+          }
+        },
+        "accessToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjoiNjIzOGZlZWY1MTZjMDAwMDRjMDA1OTliIn0sImlhdCI6MTY0NzkwMjQ0NywiZXhwIjoxNjQ3OTEzMjQ3fQ.fY6lKpuS6VU6u_4-oLPLst_P98y_sdztf4EaZp9uJO4"
+      }
+
+      ```
+
+
+      ```response:422
+
+      {
+        "message":"The email field is required. (and 4 more errors)",
+        "errors":{
+          "email":[
+            "The email field is required."
+          ],
+          "name":[
+            "The name field is required."
+          ],
+          "password":[
+            "The password field is required."
+          ],
+          "phone":[
+            "The phone field is required."
+          ],
+          "document":[
+            "The document field is required."
+          ]
+        }
+      }
+
+      ```
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email":"guilherme@gmail.com",
+        	"name": "John Doe",
+        	"birthAt": "2000-01-01",
+        	"password": "password :)",
+        	"phone": "11987654321",
+        	"document": "12312312"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_c42eb30707404886b49966914238a6f0
+    authentication: {}
+    metaSortKey: -1646090643894
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_acf8284388f14f27bba8ad311ed2eb82
+    parentId: wrk_b1072b743c734bd5b02c53e314ab59d4
+    modified: 1646955232576
+    created: 1646090635779
+    name: Authentication
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: 0
+    _type: request_group
+  - _id: wrk_b1072b743c734bd5b02c53e314ab59d4
+    parentId: null
+    modified: 1646090593160
+    created: 1646090593160
+    name: Ferrari API - Laravel
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_0ff174a047004b109e47d18b37013d97
+    parentId: fld_acf8284388f14f27bba8ad311ed2eb82
+    modified: 1647989343220
+    created: 1646166448490
+    url: "{{ _.baseUrl }}/auth/login"
+    name: Login
+    description: >-
+      #### **Description**
+
+      Logs a user into the application.
+
+
+      #### **Body Parameters**
+
+
+      | Parameter | Type | Required | Description
+
+      |--|--|--|--
+
+      | email | String | Yes | User's e-mail address used for registration.
+
+      | password | String | Yes | User's password.
+
+
+      ```response:200
+
+      {
+        "user":{
+          "id":"6235cdef117f286f635ece93",
+          "email":"guilherme@gmail.com",
+          "photo":null,
+          "personId":"6235cdef117f286f635ece92",
+          "createdAt":"2022-03-19 12:34:55",
+          "updatedAt":"2022-03-19 12:34:55",
+          "person":{
+            "id":"6235cdef117f286f635ece92",
+            "name":"John Doe",
+            "birthAt":"2000-01-01",
+            "phone":"11987654321",
+            "document":"12312312",
+            "createdAt":"2022-03-19 12:34:55",
+            "updatedAt":"2022-03-19 12:34:55"
+          }
+        },
+        "accessToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjoiNjIzNWNkZWYxMTdmMjg2ZjYzNWVjZTkzIn0sImlhdCI6MTY0Nzk4NDc0MywiZXhwIjoxNjQ3OTk1NTQzfQ.GN3ySw5Sh2GFjFoAKGTH4IyGaSX7lgdxmJTaGF2jBio"
+      }
+
+      ```
+
+
+      ```response:422
+
+      {
+        "message":"These credentials do not match our records.",
+        "errors":{
+          "email":[
+            "These credentials do not match our records."
+          ]
+        }
+      }
+
+      ```
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email":"guilherme@gmail.com",
+        	"password": "password :)"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_b8a1b2e2eaca41a0a046abc6889d482d
+    authentication: {}
+    metaSortKey: -1646090643844
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b99e5d8265424bfaadfa5ed36c4faf97
+    parentId: fld_8f06f4401c824b72ae7829edfd81c526
+    modified: 1647989238915
+    created: 1646167370130
+    url: "{{ _.baseUrl }}/auth/me"
+    name: Me
+    description: |-
+      #### **Description**
+      Retrives authenticated user information.
+
+      ```response:200
+      {
+        "id":"623520356734bf70d5131c73",
+        "email":"guilherme@gmail.com",
+        "photo":null,
+        "personId":"623520346734bf70d5131c72",
+        "createdAt":"2022-03-19 00:13:41",
+        "updatedAt":"2022-03-19 00:13:41",
+        "person":{
+          "id":"623520346734bf70d5131c72",
+          "name":"John Doe",
+          "birthAt":"2000-01-01",
+          "phone":"11987654321",
+          "document":"12312312",
+          "createdAt":"2022-03-19 00:13:40",
+          "updatedAt":"2022-03-19 00:13:40"
+        }
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+      disabled: false
+    metaSortKey: -1646090643794
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_8f06f4401c824b72ae7829edfd81c526
+    parentId: fld_acf8284388f14f27bba8ad311ed2eb82
+    modified: 1646485742610
+    created: 1646485719594
+    name: Profile
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1646090643794
+    _type: request_group
+  - _id: req_0480c12aebb74676bbfeebc3015d5133
+    parentId: fld_8f06f4401c824b72ae7829edfd81c526
+    modified: 1647988299116
+    created: 1646339193596
+    url: "{{ _.baseUrl }}/auth/profile"
+    name: Update profile
+    description: |-
+      #### **Description**
+      Updates authenticated user information.
+
+      #### **Body Parameters**
+
+      | Parameter | Type | Required | Description
+      |--|--|--|--
+      | email | String | Yes | User's e-mail address.
+      | name | String | Yes | User's real name.
+      | birthAt | Date | Yes | User's birthday. May be null.
+      | phone | String | Yes | User's phone number.
+      | document | String | Yes | User's RG or CPF.
+
+      ```response:200
+      {
+        "id":"6235cdef117f286f635ece93",
+        "email":"john_doe@gmail.com",
+        "photo":null,
+        "personId":"6235cdef117f286f635ece92",
+        "createdAt":"2022-03-19 12:34:55",
+        "updatedAt":"2022-03-22 21:41:53",
+        "person":{
+          "id":"6235cdef117f286f635ece92",
+          "name":"John Eduard Doe",
+          "birthAt":null,
+          "phone":"5511912345678",
+          "document":"12345678901",
+          "createdAt":"2022-03-19 12:34:55",
+          "updatedAt":"2022-03-22 21:41:54"
+        }
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:422
+      {
+        "message":"The phone field is required. (and 1 more error)",
+        "errors":{
+          "phone":[
+            "The phone field is required."
+          ],
+          "document":[
+            "The document field is required."
+          ]
+        }
+      }
+      ```
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "john_doe@gmail.com",
+        	"name": "John Eduard Doe",
+        	"birthAt": null,
+        	"phone": "5511912345678",
+        	"document": "12345678901"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_82fd1a71797a4358a85485fe7fec5b78
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1646090643744
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_895b21b9617d4f3eaf25485e3807b25e
+    parentId: fld_8f06f4401c824b72ae7829edfd81c526
+    modified: 1647987035174
+    created: 1646353652051
+    url: "{{ _.baseUrl }}/auth/profile/upload-photo"
+    name: Upload photo
+    description: >-
+      #### **Description**
+
+      Defines a profile picture for authenticated user.
+
+
+      #### **Body Parameters**
+
+
+      | Parameter | Type | Required | Description
+
+      |--|--|--|--
+
+      | photo | File | Yes | Image file to be defined as profile picture.
+
+
+      ```response:200
+
+      {
+        "id":"62326a89a2360000f9001be3",
+        "email":"guilherme@gmail.com",
+        "photo":"http:\/\/localhost:8000\/storage\/photos\/nqe9QjtDUBkJ6qbMoTMAvcOtv3CXoNfU5RJXV4ki.png",
+        "personId":"62326a88a2360000f9001be2",
+        "createdAt":"2022-03-16T22:54:01.013000Z",
+        "updatedAt":"2022-03-17T00:42:43.233000Z"
+      }
+
+      ```
+
+
+      ```response:401
+
+      {
+        "message":"Unauthenticated."
+      }
+
+      ```
+    method: POST
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_bb351809215a40199f6a3bb5330a6bb3
+          name: photo
+          value: ""
+          description: ""
+          type: file
+          fileName: C:\Users\guife\Pictures\Animals\cat3.png
+          disabled: false
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: multipart/form-data
+        id: pair_6c341eddfd9340928a38ef8b1da2f1fb
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1646090643694
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_07480eb8f3994870b9740cfc6b90add2
+    parentId: fld_8f06f4401c824b72ae7829edfd81c526
+    modified: 1647986951097
+    created: 1646445150174
+    url: "{{ _.baseUrl }}/auth/profile/delete-photo"
+    name: Delete photo
+    description: |-
+      #### **Description**
+      Deletes authenticated user's profile picture.
+
+      ```response:200
+      {
+        "id":"62326a89a2360000f9001be3",
+        "email":"guilherme@gmail.com",
+        "photo":null,
+        "personId":"62326a88a2360000f9001be2",
+        "createdAt":"2022-03-16T22:54:01.013000Z",
+        "updatedAt":"2022-03-16T22:54:01.013000Z"
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1646090643644
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a18bc622f58348faa3cbf810ac56446e
+    parentId: fld_c99a71a0ce3847338b3238fc23e6b9a8
+    modified: 1647986977965
+    created: 1646485835064
+    url: "{{ _.baseUrl }}/auth/change-password"
+    name: Change password
+    description: >-
+      #### **Description**
+
+
+      Updates authenticated user's password. An e-mail is send to the user notifying the update.
+
+
+      #### **Body Parameters**
+
+
+      | Parameter | Type | Required | Description
+
+      |--|--|--|--
+
+      | currentPassword | String | Yes | Authenticated user current password.
+
+      | newPassword | String | Yes | New password.
+
+      | newPasswordConfirmation | String | Yes | New password confirmation.
+
+
+      ```response:200
+
+      {
+        "message":"Password updated successfully!"
+      }
+
+      ```
+
+
+      ```response:422
+
+      {
+        "message":"The password is incorrect.",
+        "errors":{
+          "currentPassword":[
+            "The password is incorrect."
+          ]
+        }
+      }
+
+      ```
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"currentPassword": "password",
+        	"newPassword": "password :)",
+        	"newPasswordConfirmation": "password :)"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_f761bbec4d0a46c888c8c064e798232a
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1646485835064
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_c99a71a0ce3847338b3238fc23e6b9a8
+    parentId: fld_acf8284388f14f27bba8ad311ed2eb82
+    modified: 1646485770529
+    created: 1646485708243
+    name: Password
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1646090643744
+    _type: request_group
+  - _id: req_8bee65b00a8444919f4c9af42d4856c5
+    parentId: fld_c99a71a0ce3847338b3238fc23e6b9a8
+    modified: 1647987001902
+    created: 1646494361936
+    url: "{{ _.baseUrl }}/auth/forgot-password"
+    name: Forgot password
+    description: >-
+      #### **Description**
+
+
+      Sends a password recovery e-mail.
+
+
+      #### **Body Parameters**
+
+
+      | Parameter | Type | Required | Description
+
+      |--|--|--|--
+
+      | email | String | Yes | E-mail address to send the password recovery e-mail.
+
+
+      ```response:200
+
+      {
+        "status":"We have emailed your password reset link!"
+      }
+
+      ```
+
+
+      ```response:400
+
+      {
+        "email":"We can't find a user with that email address."
+      }
+
+      ```
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "guilherme@gmail.com"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_ee92e628c34f45f29bc6f155ab48447c
+    authentication: {}
+    metaSortKey: -1646485835014
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c29c6c2e83ea47a394d85e1a015f7a35
+    parentId: fld_c99a71a0ce3847338b3238fc23e6b9a8
+    modified: 1647987025324
+    created: 1646496545966
+    url: "{{ _.baseUrl }}/auth/reset-password"
+    name: Reset password
+    description: |-
+      #### **Description**
+
+      Resets a user's password based on given token and e-mail.
+
+      #### **Body Parameters**
+
+      | Parameter | Type | Required | Description
+      |--|--|--|--
+      | token | String | Yes | Reset password token.
+      | email | String | Yes | User's e-mail.
+      | password | String | Yes | Password confirmation.
+      | passwordConfirmation | String | Yes | New password confirmation.
+
+      ```response:200
+      {
+        "status":"Your password has been reset!"
+      }
+      ```
+
+      ```response:400
+      {
+        "email":"We can't find a user with that email address."
+      }
+      ```
+    method: POST
+    body:
+      mimeType: application/json
+      text: >-
+        {
+        	"token": "28b7b621b27cce90b87b8c09475fdadba678cae4e4f9ce8b6c095e8f852ea56a",
+        	"email": "guilherme@hcode.com",
+        	"password": "new password",
+        	"passwordConfirmation": "new password"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_ee92e628c34f45f29bc6f155ab48447c
+    authentication: {}
+    metaSortKey: -1646452160032
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_225ab133395d408ba783ea836faabd20
+    parentId: fld_b2fc57b9ae3a4a418a09592b25b25074
+    modified: 1647988195336
+    created: 1646590528816
+    url: "{{ _.baseUrl }}/addresses"
+    name: List addresses
+    description: |-
+      #### **Description**
+
+      Retrieves a list of all authenticated user's addresses.
+
+      ```response:200
+      [
+        {
+          "id":"623a4c1a41eff1035a721aa2",
+          "street":"Avenida Paulista",
+          "number":"123",
+          "complement":"de 1300\/1301 a 1498\/1499",
+          "district":"Sede",
+          "city":"São Paulo",
+          "state":"São Paulo",
+          "country":"Brasil",
+          "zipcode":"15370496",
+          "personId":"623a47953053e33ce25b0d82",
+          "createdAt":"2022-03-22 22:22:18",
+          "updatedAt":"2022-03-22 22:22:18"
+        }
+      ]
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1646498839856
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_b2fc57b9ae3a4a418a09592b25b25074
+    parentId: fld_acf8284388f14f27bba8ad311ed2eb82
+    modified: 1647114744458
+    created: 1646498828766
+    name: Address
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1646090643694
+    _type: request_group
+  - _id: req_36ed7ff5d75c48f09027ac4fee842e1e
+    parentId: fld_b2fc57b9ae3a4a418a09592b25b25074
+    modified: 1647991187877
+    created: 1646592243275
+    url: "{{ _.baseUrl }}/addresses/623a4c1a41eff1035a721aa2"
+    name: Show an address
+    description: |
+      #### **Description**
+
+      Retrieves an address using the given ID.
+
+      ```response:200
+      {
+        "id":"623a4c1a41eff1035a721aa2",
+        "street":"Avenida Paulista",
+        "number":"123",
+        "complement":"de 1300\/1301 a 1498\/1499",
+        "district":"Sede",
+        "city":"São Paulo",
+        "state":"São Paulo",
+        "country":"Brasil",
+        "zipcode":"15370496",
+        "personId":"623a47953053e33ce25b0d82",
+        "createdAt":"2022-03-22 22:22:18",
+        "updatedAt":"2022-03-22 22:22:18"
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Address not found."
+      }
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1646498839831
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5ed0106bc0a34f71829e7e1f9f6fb13b
+    parentId: fld_b2fc57b9ae3a4a418a09592b25b25074
+    modified: 1647990259687
+    created: 1646498839806
+    url: "{{ _.baseUrl }}/addresses"
+    name: Create an address
+    description: |-
+      #### **Description**
+      Creates an address for the authenticated user.
+
+      #### **Body Parameters**
+
+      | Parameter | Type | Required | Description
+      |--|--|--|--
+      | street | String | Yes | Address Street.
+      | number | String | No | House/Apartment number.
+      | complement | Date | No | Address complement.
+      | district | String | Yes | Address district.
+      | city | String | Yes | Address city.
+      | state | String | Yes | Address state.
+      | country | String | Yes | Address country
+      | zipcode | String | Yes | Address zipcode.
+
+      ```response:200
+      {
+        "id":"6238ffa0516c00004c00599f",
+        "street":"Avenida Paulista",
+        "number":"123",
+        "complement":"de 1300\/1301 a 1498\/1499",
+        "district":"Sede",
+        "city":"São Paulo",
+        "state":"São Paulo",
+        "country":"Brasil",
+        "zipcode":"15370496",
+        "personId":"6238feef516c00004c00599a",
+        "createdAt":"2022-03-21 22:43:44",
+        "updatedAt":"2022-03-21 22:43:44"
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:422
+      {
+      {
+        "message":"The street field is required. (and 5 more errors)",
+        "errors":{
+          "street":[
+            "The street field is required."
+          ],
+          "district":[
+            "The district field is required."
+          ],
+          "city":[
+            "The city field is required."
+          ],
+          "state":[
+            "The state field is required."
+          ],
+          "country":[
+            "The country field is required."
+          ],
+          "zipcode":[
+            "The zipcode field is required."
+          ]
+        }
+      }
+      ```
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"street": "Avenida Paulista",
+        	"number": "123",
+        	"complement": "de 1300\/1301 a 1498\/1499",
+        	"district": "Sede",
+        	"city": "São Paulo",
+        	"state": "São Paulo",
+        	"country": "Brasil",
+        	"zipcode": "15370496"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_ebaf7c7468774c228be6a591c4ab17d8
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1646498839806
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3bfc8ecfd36d47acab7b16bd712736c9
+    parentId: fld_b2fc57b9ae3a4a418a09592b25b25074
+    modified: 1647990595078
+    created: 1646598478638
+    url: "{{ _.baseUrl }}/addresses/6224fb6af32a00008c005084"
+    name: Update an address
+    description: |-
+      #### **Description**
+      Updates an address using the given ID.
+
+      #### **Body Parameters**
+
+      | Parameter | Type | Required | Description
+      |--|--|--|--
+      | street | String | Yes | Address Street.
+      | number | String | No | House/Apartment number.
+      | complement | Date | No | Address complement.
+      | district | String | Yes | Address district.
+      | city | String | Yes | Address city.
+      | state | String | Yes | Address state.
+      | country | String | Yes | Address country
+      | zipcode | String | Yes | Address zipcode.
+
+      ```response:200
+      {
+        "id":"6238ffa0516c00004c00599f",
+        "street":"Avenida Paulista",
+        "number":"123",
+        "complement":"de 1300\/1301 a 1498\/1499",
+        "district":"Sede",
+        "city":"São Paulo",
+        "state":"São Paulo",
+        "country":"Brasil",
+        "zipcode":"15370496",
+        "personId":"6238feef516c00004c00599a",
+        "createdAt":"2022-03-21 22:43:44",
+        "updatedAt":"2022-03-21 22:43:44"
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Address not found."
+      }
+      ```
+
+      ```response:422
+      {
+      {
+        "message":"The street field is required. (and 5 more errors)",
+        "errors":{
+          "street":[
+            "The street field is required."
+          ],
+          "district":[
+            "The district field is required."
+          ],
+          "city":[
+            "The city field is required."
+          ],
+          "state":[
+            "The state field is required."
+          ],
+          "country":[
+            "The country field is required."
+          ],
+          "zipcode":[
+            "The zipcode field is required."
+          ]
+        }
+      }
+      ```
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"street": "Antônio da Costa Lima",
+        	"number": "376",
+        	"complement": "Casa",
+        	"district": "Dos Casa",
+        	"city": "São Bernardo do Campo",
+        	"state": "São Paulo",
+        	"country": "Brasil",
+        	"zipcode": "09850580"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_ebaf7c7468774c228be6a591c4ab17d8
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1646492337435
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ea15d8e11d784038a91a9fe3caa744d2
+    parentId: fld_b2fc57b9ae3a4a418a09592b25b25074
+    modified: 1647988202787
+    created: 1646599625091
+    url: "{{ _.baseUrl }}/addresses/6224fb6af32a00008c005084"
+    name: Delete an address
+    description: |-
+      #### **Description**
+      Deletes an address using the given ID.
+
+      No response (204) is returned when action is performed correctly.
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Address not found."
+      }
+      ```
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1646489086249.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b179f721bf084152ac7a4081e5f9b105
+    parentId: fld_b2fc57b9ae3a4a418a09592b25b25074
+    modified: 1647988207994
+    created: 1646699557145
+    url: "{{ _.baseUrl }}/addresses/search-cep/15370496"
+    name: Search CEP
+    description: |
+      #### **Description**
+
+      Searches for a CEP using ViaCEP service.
+
+      ```response:200
+      {
+        "cep":"15370-496",
+        "logradouro":"Avenida Paulista",
+        "complemento":"de 1300\/1301 a 1498\/1499",
+        "bairro":"Sede",
+        "localidade":"Pereira Barreto",
+        "uf":"SP",
+        "ibge":"3537404",
+        "gia":"5228",
+        "ddd":"18",
+        "siafi":"6849"
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1646489086199.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d77228140856403f8efe28e93eb56a88
+    parentId: fld_1954fe08a4ca46bcb3b1706ad1506d0a
+    modified: 1647990729285
+    created: 1646865114039
+    url: "{{ _.baseUrl }}/contacts"
+    name: List all contacs
+    description: |
+      #### **Description**
+
+      Retrieves a list of all contacts.
+
+      Requires admin authentication.
+
+      ```response:200
+      [
+        {
+          "id":"623a528119670000aa0016b4",
+          "email":"guilherme@gmail.com",
+          "message":"I have some ideas...",
+          "personId":"623a528119670000aa0016b3",
+          "createdAt":"2022-03-22 22:49:37",
+          "updatedAt":"2022-03-22 22:49:37"
+        }
+      ]
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645570764274
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_1954fe08a4ca46bcb3b1706ad1506d0a
+    parentId: wrk_b1072b743c734bd5b02c53e314ab59d4
+    modified: 1646955232576
+    created: 1646865114028
+    name: Contact
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: 200
+    _type: request_group
+  - _id: req_a33cd50bd17c478db9a145d817504172
+    parentId: fld_1954fe08a4ca46bcb3b1706ad1506d0a
+    modified: 1647989635789
+    created: 1646865114050
+    url: "{{ _.baseUrl }}/contacts/my-contacts"
+    name: List all user's contacs
+    description: |
+      #### **Description**
+
+      Retrieves a list of all authenticated user contacts.
+
+      ```response:200
+      [
+        {
+          "id":"623a528119670000aa0016b4",
+          "email":"guilherme@gmail.com",
+          "message":"I have some ideas...",
+          "personId":"623a528119670000aa0016b3",
+          "createdAt":"2022-03-22 22:49:37",
+          "updatedAt":"2022-03-22 22:49:37"
+        }
+      ]
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645550839710.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_252425bc6235418baf84c56a7f43ef20
+    parentId: fld_1954fe08a4ca46bcb3b1706ad1506d0a
+    modified: 1647991280450
+    created: 1646865114045
+    url: "{{ _.baseUrl }}/contacts/623a526e19670000aa0016b2"
+    name: Show a contact
+    description: >
+      #### **Description**
+
+
+      Retrieves a contact detailed information using the given ID.
+
+
+      Requires the authentication user to be the owner of the contact or an system admin.
+
+
+      ```response:200
+
+      {
+        "id":"623a526e19670000aa0016b2",
+        "email":"guilherme@gmail.com",
+        "message":"I have some ideas...",
+        "personId":"6238feef516c00004c00599a",
+        "createdAt":"2022-03-22 22:49:18",
+        "updatedAt":"2022-03-22 22:49:18",
+        "person":{
+          "id":"6238feef516c00004c00599a",
+          "name":"John Doe",
+          "birthAt":"2000-01-01",
+          "phone":"11987654321",
+          "document":"12312312",
+          "createdAt":"2022-03-21 22:40:47",
+          "updatedAt":"2022-03-21 22:40:47"
+        }
+      }
+
+      ```
+
+
+      ```response:401
+
+      {
+        "message":"Unauthenticated."
+      }
+
+      ```
+
+
+      ```response:404
+
+      {
+        "message":"Contact not found."
+      }
+
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645530915147.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_166ee535b7834959ac8b968168b83536
+    parentId: fld_1954fe08a4ca46bcb3b1706ad1506d0a
+    modified: 1647989558946
+    created: 1646865114035
+    url: "{{ _.baseUrl }}/contacts"
+    name: Create a contact
+    description: |-
+      #### **Description**
+
+      Creates a contact.
+
+      #### **Body Parameters**
+
+      | Parameter | Type | Required | Description
+      |--|--|--|--
+      | name | String | Yes | Name to identify the sender.
+      | email | String | Yes | E-mail to reply to.
+      | message | String | Yes | Contact message.
+
+      ```response:200
+      {
+        "id":"62294da94e4a0000f9000992",
+        "email":"guilherme@gmail.com",
+        "message":"I have some ideas...",
+        "personId":"62294c314e4a0000f9000990",
+        "createdAt":"2022-03-10T01:00:25.130000Z",
+        "updatedAt":"2022-03-10T01:00:25.130000Z"
+      }
+      ```
+
+      ```response:422
+      {
+        "message":"The name field is required. (and 2 more errors)",
+        "errors":{
+          "name":[
+            "The name field is required."
+          ],
+          "email":[
+            "The email field is required."
+          ],
+          "message":[
+            "The message field is required."
+          ]
+        }
+      }
+      ```
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Guilherme",
+        	"email": "guilherme@gmail.com",
+        	"message": "I have some ideas..."
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_5b05eccfa82e469696cd7233edabd509
+    authentication: {}
+    metaSortKey: -1645491066021
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e67f4275a59140409c0b48f30a797218
+    parentId: fld_1954fe08a4ca46bcb3b1706ad1506d0a
+    modified: 1647990681649
+    created: 1646865114042
+    url: "{{ _.baseUrl }}/contacts/62294da94e4a0000f9000992"
+    name: Delete a contact
+    description: |-
+      #### **Description**
+
+      Deletes a contact using the given ID.
+
+      No response (204) is returned when action is performed correctly.
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Contact not found."
+      }
+      ```
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645491065971
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0b10af0e3339415d905ef182d5f2db65
+    parentId: fld_b62a4e15adae427683d91cbd359e164d
+    modified: 1647990782435
+    created: 1647114724584
+    url: "{{ _.baseUrl }}/services"
+    name: List all services
+    description: |-
+      #### **Description**
+
+      Retrieves a list of all services supported by Ferrari.
+
+      ```response:200
+      [
+        {
+          "id":"6238ff35516c00004c00599c",
+          "name":"Ferrari Oil Change",
+          "description":"Change you Ferrari oil today!",
+          "price":300,
+          "createdAt":"2022-03-21 22:41:57",
+          "updatedAt":"2022-03-21 22:41:57"
+        }
+      ]
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1645617541179
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_b62a4e15adae427683d91cbd359e164d
+    parentId: wrk_b1072b743c734bd5b02c53e314ab59d4
+    modified: 1647114734101
+    created: 1647114724581
+    name: Services
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: 400
+    _type: request_group
+  - _id: req_9e00e513834348be99bb989b244386d7
+    parentId: fld_b62a4e15adae427683d91cbd359e164d
+    modified: 1647990865504
+    created: 1647114724594
+    url: "{{ _.baseUrl }}/services/6238ff35516c00004c00599c"
+    name: Show a service
+    description: |-
+      #### **Description**
+
+      Retrieves detailed information about a Ferrari service.
+
+      ```response:200
+      {
+        "id":"6238ff35516c00004c00599c",
+        "name":"Ferrari Oil Change",
+        "description":"Change you Ferrari oil today!",
+        "price":300,
+        "createdAt":"2022-03-21 22:41:57",
+        "updatedAt":"2022-03-21 22:41:57"
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Service not found."
+      }
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1645606488117
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e0fb79c6cb82470eb93079fc106b06bc
+    parentId: fld_b62a4e15adae427683d91cbd359e164d
+    modified: 1647990708289
+    created: 1647114724586
+    url: "{{ _.baseUrl }}/services"
+    name: Create a service
+    description: |-
+      #### **Description**
+
+      Creates a Ferrari service.
+
+      Requires admin authentication.
+
+      #### **Body Parameters**
+
+      | Parameter | Type | Required | Description
+      |--|--|--|--
+      | name | String | Yes | Service name.
+      | description | String | Yes | Service description.
+      | price | Float | Yes | Service price.
+
+      ```response:200
+      {
+        "id":"6238ff35516c00004c00599c",
+        "name":"Ferrari Oil Change",
+        "description":"Change you Ferrari oil today!",
+        "price":300,
+        "createdAt":"2022-03-21 22:41:57",
+        "updatedAt":"2022-03-21 22:41:57"
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+
+      ```response:422
+      {
+      	"message": "The name field is required. (and 2 more errors)",
+      	"errors": {
+      		"name": [
+      			"The name field is required."
+      		],
+      		"description": [
+      			"The description field is required."
+      		],
+      		"price": [
+      			"The price field is required."
+      		]
+      	}
+      }
+      ```
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Ferrari Oil Change",
+        	"description": "Change you Ferrari oil today!",
+        	"price": 300
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_62707fb088184fb695c02cb360273952
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645595435055
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f28c439484f542c0b2b4cceabf4ee6f2
+    parentId: fld_b62a4e15adae427683d91cbd359e164d
+    modified: 1647990707206
+    created: 1647114724591
+    url: "{{ _.baseUrl }}/services/6231162dd92f00006b0007ec"
+    name: Update a service
+    description: |-
+      #### **Description**
+
+      Updates a Ferrari service.
+
+      Requires admin authentication.
+
+      #### **Body Parameters**
+
+      | Parameter | Type | Required | Description
+      |--|--|--|--
+      | name | String | Yes | Service name.
+      | description | String | Yes | Service description.
+      | price | Float | Yes | Service price.
+
+      ```response:200
+      {
+        "id":"6238ff35516c00004c00599c",
+        "name":"Ferrari Oil Change",
+        "description":"Change you Ferrari oil today!",
+        "price":300,
+        "createdAt":"2022-03-21 22:41:57",
+        "updatedAt":"2022-03-21 22:41:57"
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Service not found."
+      }
+      ```
+
+      ```response:422
+      {
+      	"message": "The name field is required. (and 2 more errors)",
+      	"errors": {
+      		"name": [
+      			"The name field is required."
+      		],
+      		"description": [
+      			"The description field is required."
+      		],
+      		"price": [
+      			"The price field is required."
+      		]
+      	}
+      }
+      ```
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Ferrari Oil Change12",
+        	"description": "Change you Ferrari oil today!",
+        	"price": 875.50
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_62707fb088184fb695c02cb360273952
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645589908524
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e9eba74e5116483e9e24b108c224e656
+    parentId: fld_b62a4e15adae427683d91cbd359e164d
+    modified: 1647990916428
+    created: 1647114724589
+    url: "{{ _.baseUrl }}/services/3"
+    name: Delete a service
+    description: |-
+      #### **Description**
+
+      Deletes a Ferrari service.
+
+      Requires admin authentication.
+
+      No response (204) is returned when action is performed correctly.
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Service not found."
+      }
+      ```
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645584381993
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8d47ec8763a84834beeea8beee4f0c25
+    parentId: fld_b62a4e15adae427683d91cbd359e164d
+    modified: 1647990921852
+    created: 1647117590933
+    url: "{{ _.baseUrl }}/services/622cfe43e24100003e005912"
+    name: Restore a service
+    description: |-
+      #### **Description**
+
+      Restores a previously deleted Ferrari service.
+
+      Requires admin authentication.
+
+      ```response:200
+      {
+        "id":"6238ff35516c00004c00599c",
+        "name":"Ferrari Oil Change",
+        "description":"Change you Ferrari oil today!",
+        "price":300,
+        "createdAt":"2022-03-21 22:41:57",
+        "updatedAt":"2022-03-21 22:41:57"
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Service not found."
+      }
+      ```
+    method: POST
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1645584381943
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_eb1d0e0036da4801a52e4b0a1f920eaf
+    parentId: fld_7f978b67eb6941d4b90149e618f8b665
+    modified: 1647898349410
+    created: 1646955225670
+    url: "{{ _.baseUrl }}/time-options"
+    name: List all time options
+    description: >-
+      #### **Description**
+
+      Gets the list of day and time options users must choose when creating a schedule.
+
+
+      Does not require authentication.
+
+
+      ```response:200
+
+      [
+        {
+          "id":"6238ec72516c00004c005992",
+          "day":1,
+          "time":"13:59",
+          "createdAt":"2022-03-21 21:21:54",
+          "updatedAt":"2022-03-21 21:21:54"
+        },
+        {
+          "id":"6238ec8f516c00004c005993",
+          "day":5,
+          "time":"15:00",
+          "createdAt":"2022-03-21 21:22:23",
+          "updatedAt":"2022-03-21 21:22:23"
+        }
+      ]
+
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1645573328931
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_7f978b67eb6941d4b90149e618f8b665
+    parentId: wrk_b1072b743c734bd5b02c53e314ab59d4
+    modified: 1647114761501
+    created: 1646955225667
+    name: Time Options
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: 425
+    _type: request_group
+  - _id: req_668a439d9eb14f5e8cddae1251957072
+    parentId: fld_7f978b67eb6941d4b90149e618f8b665
+    modified: 1647986522838
+    created: 1646955225672
+    url: "{{ _.baseUrl }}/time-options"
+    name: Create a time option
+    description: >-
+      #### **Description**
+
+      Adds an item to the list of day and time options users must choose when creating a schedule.
+
+
+      Requires admin authentication.
+
+
+      #### **Body Parameters**
+
+
+      | Parameter | Type | Required | Description
+
+      |--|--|--|--
+
+      | day | Integer | Yes | Represents day of week. From 0 (Sunday) to 6 (Saturday).
+
+      | time | String | Yes | Hour available for scheduling.
+
+
+
+      ```response:200
+
+      {
+        "id":"622fd5dc4a2300001f004662",
+        "day":1,
+        "time":"13:59",
+        "createdAt":"2022-03-14T23:55:08.673000Z",
+        "updatedAt":"2022-03-14T23:55:08.673000Z"
+      }
+
+      ```
+
+
+      ```response:401
+
+      {
+        "message":"Unauthenticated."
+      }
+
+      ```
+
+
+      ```response:403
+
+      {
+        "message":"This action is unauthorized."
+      }
+
+      ```
+
+
+      ```response:422
+
+      {
+        "message":"The day and time combination is already in use.",
+        "errors":{
+          "day":[
+            "The day and time combination is already in use."
+          ]
+        }
+      }
+
+      ```
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"day": 5,
+        	"time": "15:00"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_b3b22fcc603d48398143dd6498ec2612
+        disabled: false
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+      disabled: false
+    metaSortKey: -1645573328881
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_92798f44b54f4462af21c2176e2a347f
+    parentId: fld_7f978b67eb6941d4b90149e618f8b665
+    modified: 1647987628194
+    created: 1647303222138
+    url: "{{ _.baseUrl }}/time-options/622f8d00b607000053000bc21"
+    name: Delete a time option
+    description: >-
+      #### **Description**
+
+      Removes an item from the list of day and time options users must choose when creating a schedule.
+
+
+      No response (204) is returned when action is performed correctly.
+
+
+      Requires admin authentication.
+
+
+      ```response:401
+
+      {
+        "message":"Unauthenticated."
+      }
+
+      ```
+
+
+      ```response:403
+
+      {
+        "message":"This action is unauthorized."
+      }
+
+      ```
+
+
+      ```response:404
+
+      {
+        "message":"Time Option not found."
+      }
+
+      ```
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645572046577.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ee2cd716e3d743328fcbc74da6d5baa0
+    parentId: fld_7f978b67eb6941d4b90149e618f8b665
+    modified: 1647987530225
+    created: 1647303258150
+    url: "{{ _.baseUrl }}/time-options/622f8d00b607000053000bc"
+    name: Restore a time option
+    description: >-
+      #### **Description**
+
+      Restores a delete item to the list of day and time options users must choose when creating a schedule.
+
+
+      Requires admin authentication.
+
+
+      ```response:200
+
+      {
+        "id":"622f8d00b607000053000bc2",
+        "day":"1",
+        "time":"13:59",
+        "createdAt":"2022-03-14T18:44:16.878000Z",
+        "updatedAt":"2022-03-15T00:14:36.651000Z"
+      }
+
+      ```
+
+
+      ```response:401
+
+      {
+        "message":"Unauthenticated."
+      }
+
+      ```
+
+
+      ```response:403
+
+      {
+        "message":"This action is unauthorized."
+      }
+
+      ```
+
+
+      ```response:404
+
+      {
+        "message":"Time Option not found."
+      }
+
+      ```
+    method: POST
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645571405425.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_fa0a504c186b47318ec7d8bc5ec245b7
+    parentId: fld_d47615091c1f408e8002c5bcbd88f047
+    modified: 1647899863525
+    created: 1647036795842
+    url: "{{ _.baseUrl }}/payment-situations"
+    name: List all payment situations
+    description: |-
+      #### **Description**
+      Gets a list of all possible payment situations.
+
+      Does not require authentication.
+
+      ```response:200
+      [
+        {
+          "id":1,
+          "name":"Payment Pending",
+          "createdAt":"2022-03-17 23:23:03",
+          "updatedAt":"2022-03-17 23:23:03"
+        },
+        {
+          "id":2,
+          "name":"Canceled",
+          "createdAt":"2022-03-17 23:23:03",
+          "updatedAt":"2022-03-17 23:23:03"
+        },
+        {
+          "id":3,
+          "name":"Payment Approved",
+          "createdAt":"2022-03-17 23:23:03",
+          "updatedAt":"2022-03-17 23:23:03"
+        },
+        {
+          "id":4,
+          "name":"Payment Reversed",
+          "createdAt":"2022-03-17 23:23:03",
+          "updatedAt":"2022-03-17 23:23:03"
+        },
+        {
+          "id":5,
+          "name":"Handling",
+          "createdAt":"2022-03-17 23:23:03",
+          "updatedAt":"2022-03-17 23:23:03"
+        },
+        {
+          "id":6,
+          "name":"Sent",
+          "createdAt":"2022-03-17 23:23:03",
+          "updatedAt":"2022-03-17 23:23:03"
+        }
+      ]
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1645659330085
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_d47615091c1f408e8002c5bcbd88f047
+    parentId: wrk_b1072b743c734bd5b02c53e314ab59d4
+    modified: 1647114758696
+    created: 1647036795821
+    name: Payment Situations
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: 450
+    _type: request_group
+  - _id: req_f390079c32d04429960eed8864979867
+    parentId: fld_d47615091c1f408e8002c5bcbd88f047
+    modified: 1647901421201
+    created: 1647036795849
+    url: "{{ _.baseUrl }}/payment-situations/7"
+    name: Show a payment situation
+    description: |-
+      #### **Description**
+      Retrieves detailed information about a specific payment situation.
+
+      Does not require authentication.
+
+      ```response:200
+      {
+        "id":"1",
+        "name":"Payment Pending",
+        "createdAt":"2022-03-21 21:52:37",
+        "updatedAt":"2022-03-21 21:52:37"
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Payment Situation not found."
+      }
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1645659330060
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ceacd6dcee844541a07105dac51ea6f8
+    parentId: fld_d47615091c1f408e8002c5bcbd88f047
+    modified: 1647991496784
+    created: 1647036795833
+    url: "{{ _.baseUrl }}/payment-situations"
+    name: Create a payment situation
+    description: |-
+      #### **Description**
+      Creates a new payment situation.
+
+      Requires admin authentication.
+
+      #### **Body Parameters**
+
+      | Parameter | Type | Required | Description
+      |--|--|--|--
+      | name | String | Yes | Name of the payment situation.
+
+      ```response:201
+      {
+        "id":7,
+        "name":"Payment Refused",
+        "createdAt":"2022-03-21 22:19:11",
+        "updatedAt":"2022-03-21 22:19:11"
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+
+      ```response:422
+      {
+        "message":"The name has already been taken.",
+        "errors":{
+          "name":[
+            "The name has already been taken."
+          ]
+        }
+      }
+      ```
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Payment Refused"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_39c9e943d1364df0a6e1784e46cab20b
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645659330035
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b93dcb0ccd94461f9cbc5948855fa44e
+    parentId: fld_d47615091c1f408e8002c5bcbd88f047
+    modified: 1647991070808
+    created: 1647040961515
+    url: "{{ _.baseUrl }}/payment-situations/7"
+    name: Update a payment situation
+    description: |-
+      #### **Description**
+      Updates a payment situation using the given ID.
+
+      Requires admin authentication.
+
+      #### **Body Parameters**
+
+      | Parameter | Type | Required | Description
+      |--|--|--|--
+      | name | String | Yes | Name of the payment situation.
+
+      ```response:200
+      {
+        "id":"7",
+        "name":"Waiting",
+        "createdAt":"2022-03-21 22:24:50",
+        "updatedAt":"2022-03-21 22:24:56"
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Payment Situation not found."
+      }
+      ```
+
+      ```response:422
+      {
+        "message":"The name has already been taken.",
+        "errors":{
+          "name":[
+            "The name has already been taken."
+          ]
+        }
+      }
+      ```
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Waiting"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_39c9e943d1364df0a6e1784e46cab20b
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645656452467.9375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0ee870e8b80c48a59d777c0a283ef2ff
+    parentId: fld_d47615091c1f408e8002c5bcbd88f047
+    modified: 1647987636999
+    created: 1647036795859
+    url: "{{ _.baseUrl }}/payment-situations/7"
+    name: Delete a payment situation
+    description: |-
+      #### **Description**
+      Deletes a payment situation using the given ID.
+
+      No response (204) is returned when action is performed correctly.
+
+      Requires admin authentication.
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Payment Situation not found."
+      }
+      ```
+      ```
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645650697333.8125
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_fe06953f09094736abaaba0a5bda66c7
+    parentId: fld_d47615091c1f408e8002c5bcbd88f047
+    modified: 1647986538359
+    created: 1647041550544
+    url: "{{ _.baseUrl }}/payment-situations/7"
+    name: Restore a payment situation
+    description: |-
+      #### **Description**
+      Restores a payment situation using the given ID.
+
+      Requires admin authentication.
+
+      ```response:200
+      {
+      	"id": 7,
+      	"name": "Payment Refused",
+      	"createdAt": "2022-03-21 22:19:11",
+      	"updatedAt": "2022-03-21 22:19:11"
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Payment Situation not found."
+      }
+      ```
+      ```
+    method: POST
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645643503416.1562
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9fa1b1eccd7f4611907bf06c4e6919c8
+    parentId: fld_7fa1bc287caa4d04a4a2c086344e5523
+    modified: 1647991329290
+    created: 1647117966967
+    url: "{{ _.baseUrl }}/schedules"
+    name: List all schedules
+    description: |-
+      #### **Description**
+
+      Retrieves a list of all schedules.
+
+      Requires admin authentication.
+
+      ```response:200
+      {
+        "data":[
+          {
+            "id":"6239021c516c00004c0059a0",
+            "scheduleAt":"2022-04-08",
+            "installments":1,
+            "total":300,
+            "completedAt":null,
+            "createdAt":"2022-03-21 22:54:20",
+            "updatedAt":"2022-03-21 22:54:20",
+            "timeOptionId":"6238ff3a516c00004c00599d",
+            "billingAddressId":"6238ffa0516c00004c00599f",
+            "personId":"6238feef516c00004c00599a"
+          }
+        ],
+        "links":{
+          "first":"http:\/\/localhost:8000\/api\/schedules?page=1",
+          "last":null,
+          "prev":null,
+          "next":null
+        },
+        "meta":{
+          "current_page":1,
+          "from":1,
+          "path":"http:\/\/localhost:8000\/api\/schedules",
+          "per_page":15,
+          "to":1
+        }
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645753349474
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_7fa1bc287caa4d04a4a2c086344e5523
+    parentId: wrk_b1072b743c734bd5b02c53e314ab59d4
+    modified: 1647117974565
+    created: 1647117966959
+    name: Schedules
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: 500
+    _type: request_group
+  - _id: req_e849287d02794fd0af532a257d6e00f9
+    parentId: fld_7fa1bc287caa4d04a4a2c086344e5523
+    modified: 1647991288917
+    created: 1647117966969
+    url: "{{ _.baseUrl }}/schedules/my-schedules"
+    name: "List all user's schedules "
+    description: |-
+      #### **Description**
+
+      Retrieves a list of all schedules made by authenticated user.
+
+      ```response:200
+      {
+        "data":[
+          {
+            "id":"6239021c516c00004c0059a0",
+            "scheduleAt":"2022-04-08",
+            "installments":1,
+            "total":300,
+            "completedAt":null,
+            "createdAt":"2022-03-21 22:54:20",
+            "updatedAt":"2022-03-21 22:54:20",
+            "timeOptionId":"6238ff3a516c00004c00599d",
+            "billingAddressId":"6238ffa0516c00004c00599f",
+            "personId":"6238feef516c00004c00599a"
+          }
+        ],
+        "links":{
+          "first":"http:\/\/localhost:8000\/api\/schedules?page=1",
+          "last":null,
+          "prev":null,
+          "next":null
+        },
+        "meta":{
+          "current_page":1,
+          "from":1,
+          "path":"http:\/\/localhost:8000\/api\/schedules",
+          "per_page":15,
+          "to":1
+        }
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645750142446.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ee7f5491108b45da97b92e27c035a2fe
+    parentId: fld_7fa1bc287caa4d04a4a2c086344e5523
+    modified: 1647991359976
+    created: 1647472186435
+    url: "{{ _.baseUrl }}/schedules/6239021c516c00004c0059a0"
+    name: Show a schedule
+    description: >
+      #### **Description**
+
+
+      Retrieves detailed information about a schedule using the given ID.
+
+
+      Requires the authentication user to be the owner of the schedule or an system admin.
+
+
+      ```response:200
+
+      {
+        "id":"6239021c516c00004c0059a0",
+        "scheduleAt":"2022-04-08",
+        "installments":1,
+        "total":300,
+        "completedAt":null,
+        "createdAt":"2022-03-21 22:54:20",
+        "updatedAt":"2022-03-21 22:54:20",
+        "timeOptionId":"6238ff3a516c00004c00599d",
+        "billingAddressId":"6238ffa0516c00004c00599f",
+        "personId":"6238feef516c00004c00599a",
+        "timeOption":{
+          "id":"6238ff3a516c00004c00599d",
+          "day":5,
+          "time":"15:00",
+          "createdAt":"2022-03-21 22:42:02",
+          "updatedAt":"2022-03-21 22:42:02"
+        },
+        "billingAddress":{
+          "id":"6238ffa0516c00004c00599f",
+          "street":"Avenida Paulista",
+          "number":"123",
+          "complement":"de 1300\/1301 a 1498\/1499",
+          "district":"Sede",
+          "city":"São Paulo",
+          "state":"São Paulo",
+          "country":"Brasil",
+          "zipcode":"15370496",
+          "personId":"6238feef516c00004c00599a",
+          "createdAt":"2022-03-21 22:43:44",
+          "updatedAt":"2022-03-21 22:43:44"
+        },
+        "person":{
+          "id":"6238feef516c00004c00599a",
+          "name":"John Doe",
+          "birthAt":"2000-01-01",
+          "phone":"11987654321",
+          "document":"12312312",
+          "createdAt":"2022-03-21 22:40:47",
+          "updatedAt":"2022-03-21 22:40:47"
+        },
+        "services":[
+          {
+            "id":"6238ff35516c00004c00599c",
+            "name":"Ferrari Oil Change",
+            "description":"Change you Ferrari oil today!",
+            "price":300,
+            "createdAt":"2022-03-21 22:41:57",
+            "updatedAt":"2022-03-21 22:41:57"
+          }
+        ]
+      }
+
+      ```
+
+
+      ```response:401
+
+      {
+        "message":"Unauthenticated."
+      }
+
+      ```
+
+
+      ```response:403
+
+      {
+        "message":"This action is unauthorized."
+      }
+
+      ```
+
+
+      ```response:404
+
+      {
+        "message":"Schedule not found."
+      }
+
+      ```
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645750142434
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0f1a45d80b0c4a6a8a408ffc00417812
+    parentId: fld_7fa1bc287caa4d04a4a2c086344e5523
+    modified: 1647991314695
+    created: 1647117966965
+    url: "{{ _.baseUrl }}/schedules"
+    name: Create a schedule
+    description: >-
+      #### **Description**
+
+      Creates a schedule for the authenticated user.
+
+
+      Requires authentication.
+
+
+      #### **Body Parameters**
+
+
+      | Parameter | Type | Required | Description
+
+      |--|--|--|--
+
+      | timeOptionId | Integer | Yes | Time Option ID chosen to the schedule.
+
+      | billingAddressId | String | Yes | Address ID to use for payment bills.
+
+      | scheduleAt | Date | Yes | Date chosen to the schedule.
+
+      | installments | Integer | Yes | Amount of installments to divide schedule's total price by.
+
+      | services | Array | Yes | Array containg ids of services user chose for the schedule.
+
+
+
+      ```response:201
+
+      {
+        "id":"6239021c516c00004c0059a0",
+        "scheduleAt":"2022-04-08",
+        "installments":1,
+        "total":300,
+        "completedAt":null,
+        "createdAt":"2022-03-21 22:54:20",
+        "updatedAt":"2022-03-21 22:54:20",
+        "timeOptionId":"6238ff3a516c00004c00599d",
+        "billingAddressId":"6238ffa0516c00004c00599f",
+        "personId":"6238feef516c00004c00599a",
+        "timeOption":{
+          "id":"6238ff3a516c00004c00599d",
+          "day":5,
+          "time":"15:00",
+          "createdAt":"2022-03-21 22:42:02",
+          "updatedAt":"2022-03-21 22:42:02"
+        },
+        "billingAddress":{
+          "id":"6238ffa0516c00004c00599f",
+          "street":"Avenida Paulista",
+          "number":"123",
+          "complement":"de 1300\/1301 a 1498\/1499",
+          "district":"Sede",
+          "city":"São Paulo",
+          "state":"São Paulo",
+          "country":"Brasil",
+          "zipcode":"15370496",
+          "personId":"6238feef516c00004c00599a",
+          "createdAt":"2022-03-21 22:43:44",
+          "updatedAt":"2022-03-21 22:43:44"
+        },
+        "person":{
+          "id":"6238feef516c00004c00599a",
+          "name":"John Doe",
+          "birthAt":"2000-01-01",
+          "phone":"11987654321",
+          "document":"12312312",
+          "createdAt":"2022-03-21 22:40:47",
+          "updatedAt":"2022-03-21 22:40:47"
+        },
+        "services":[
+          {
+            "id":"6238ff35516c00004c00599c",
+            "name":"Ferrari Oil Change",
+            "description":"Change you Ferrari oil today!",
+            "price":300,
+            "createdAt":"2022-03-21 22:41:57",
+            "updatedAt":"2022-03-21 22:41:57"
+          }
+        ]
+      }
+
+      ```
+
+
+      ```response:422
+
+      {
+        "message":"The selected time option id is invalid. (and 3 more errors)",
+        "errors":{
+          "timeOptionId":[
+            "The selected time option id is invalid."
+          ],
+          "billingAddressId":[
+            "The selected billing address id is invalid."
+          ],
+          "scheduleAt":[
+            "The schedule at day of week must be the same as given time option day of week."
+          ],
+          "services.0":[
+            "The selected services.0 is invalid."
+          ]
+        }
+      }
+
+      ```
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"timeOptionId": "6238ff3a516c00004c00599d",
+        	"billingAddressId": "6238ffa0516c00004c00599f",
+        	"scheduleAt": "2022-04-08",
+        	"installments": 1,
+        	"services": [
+        		"6238ff35516c00004c00599c"
+        	]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_ebfc28dc7bee4a37ae34ac18d904244d
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645750142421.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_233dd34abdd1409184a7f574fbe75e7e
+    parentId: fld_7fa1bc287caa4d04a4a2c086344e5523
+    modified: 1647991398465
+    created: 1647471782475
+    url: "{{ _.baseUrl }}/schedules/6239021c516c00004c0059a0/completed"
+    name: Mark a schedule as completed
+    description: |
+      #### **Description**
+
+      Marks a schedule as completed using the given ID.
+
+      Requires admin authentication.
+
+      ```response:200
+      {
+        "id":"6239021c516c00004c0059a0",
+        "scheduleAt":"2022-04-08",
+        "installments":1,
+        "total":300,
+        "completedAt":null,
+        "createdAt":"2022-03-21 22:54:20",
+        "updatedAt":"2022-03-21 22:54:20",
+        "timeOptionId":"6238ff3a516c00004c00599d",
+        "billingAddressId":"6238ffa0516c00004c00599f",
+        "personId":"6238feef516c00004c00599a",
+        "timeOption":{
+          "id":"6238ff3a516c00004c00599d",
+          "day":5,
+          "time":"15:00",
+          "createdAt":"2022-03-21 22:42:02",
+          "updatedAt":"2022-03-21 22:42:02"
+        },
+        "billingAddress":{
+          "id":"6238ffa0516c00004c00599f",
+          "street":"Avenida Paulista",
+          "number":"123",
+          "complement":"de 1300\/1301 a 1498\/1499",
+          "district":"Sede",
+          "city":"São Paulo",
+          "state":"São Paulo",
+          "country":"Brasil",
+          "zipcode":"15370496",
+          "personId":"6238feef516c00004c00599a",
+          "createdAt":"2022-03-21 22:43:44",
+          "updatedAt":"2022-03-21 22:43:44"
+        },
+        "person":{
+          "id":"6238feef516c00004c00599a",
+          "name":"John Doe",
+          "birthAt":"2000-01-01",
+          "phone":"11987654321",
+          "document":"12312312",
+          "createdAt":"2022-03-21 22:40:47",
+          "updatedAt":"2022-03-21 22:40:47"
+        },
+        "services":[
+          {
+            "id":"6238ff35516c00004c00599c",
+            "name":"Ferrari Oil Change",
+            "description":"Change you Ferrari oil today!",
+            "price":300,
+            "createdAt":"2022-03-21 22:41:57",
+            "updatedAt":"2022-03-21 22:41:57"
+          }
+        ]
+      }
+      ```
+
+      ```response:401
+      {
+        "message":"Unauthenticated."
+      }
+      ```
+
+      ```response:403
+      {
+        "message":"This action is unauthorized."
+      }
+      ```
+
+      ```response:404
+      {
+        "message":"Schedule not found."
+      }
+      ```
+    method: POST
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.accessToken }}"
+    metaSortKey: -1645750142346.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_51fc29547594ba7f6ebdbcec64fd793d367210d9
+    parentId: wrk_b1072b743c734bd5b02c53e314ab59d4
+    modified: 1646268015279
+    created: 1646090593171
+    name: Base Environment
+    data:
+      accessToken: "{% response 'body', 'req_0ff174a047004b109e47d18b37013d97',
+        'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+    dataPropertyOrder:
+      "&":
+        - accessToken
+    color: null
+    isPrivate: false
+    metaSortKey: 1646090593171
+    _type: environment
+  - _id: jar_51fc29547594ba7f6ebdbcec64fd793d367210d9
+    parentId: wrk_b1072b743c734bd5b02c53e314ab59d4
+    modified: 1646090593173
+    created: 1646090593174
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_c6bd8720637d479ca170ae26c90b1bd4
+    parentId: wrk_b1072b743c734bd5b02c53e314ab59d4
+    modified: 1646090593164
+    created: 1646090593164
+    fileName: Ferrari API - Laravel
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_36065ab5c46e496f81c7fdf4dd5c5b4d
+    parentId: env_51fc29547594ba7f6ebdbcec64fd793d367210d9
+    modified: 1647648591163
+    created: 1646090650606
+    name: Development
+    data:
+      baseUrl: http://localhost:8000/api
+    dataPropertyOrder:
+      "&":
+        - baseUrl
+    color: "#11d5ee"
+    isPrivate: false
+    metaSortKey: 1646090650606
+    _type: environment
+  - _id: env_f567b4e2a2364f1ab2e18d6608fd1fec
+    parentId: env_51fc29547594ba7f6ebdbcec64fd793d367210d9
+    modified: 1647693317549
+    created: 1647648319858
+    name: Heroku
+    data:
+      baseUrl: https://ferrari-api-laravel.herokuapp.com/api
+    dataPropertyOrder:
+      "&":
+        - baseUrl
+    color: "#a116fe"
+    isPrivate: false
+    metaSortKey: 1647648319858
+    _type: environment
