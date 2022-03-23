@@ -4,6 +4,10 @@ This project is built with Laravel Framework and MongoDB. It mimics Hcode's Ferr
 
 ## API Documentation
 
+API Documentation can be found [here](https://ferrari-api-laravel.herokuapp.com/).
+
+There is also an Insomnia file inside docs folder.
+
 ## Requirements
 
 * PHP 8.0.2 or newer.
