@@ -16,7 +16,7 @@ There is also an Insomnia file inside docs folder.
 
 Start by cloning this repository.
 
-```git clone https://github.com/Guilherme-Ferreti/php-slim-boilerplate.git```
+```git clone https://github.com/Guilherme-Ferreti/ferrari-api-laravel.git```
 
 Make sure you have installed Composer. If not, please check its official [guide](http://getcomposer.org/doc/00-intro.md#installation).
 
@@ -24,7 +24,7 @@ When ready, install the dependencies by running the following command in your ap
 
 ```composer install```
 
-Copy *.env.example* file and rename it to *.env*. Then, configure your local environment.
+Copy *.env.example* file and rename it to *.env*. Then, configure your local environment. That includes your MongoDB connection.
 
 Serve you app and that's it!
 
