@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Person;
 use App\Models\Address;
-use Illuminate\Testing\Fluent\AssertableJson;
+use App\Models\Person;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Tests\TestCase;
 
 class AddressTest extends TestCase
 {
@@ -25,10 +25,10 @@ class AddressTest extends TestCase
         $this->actingAs($userA)
             ->get($route)
             ->assertOk()
-            ->assertJson(fn (AssertableJson $json) => 
+            ->assertJson(fn (AssertableJson $json) =>
                 $json->has(5)
-                    ->first(fn (AssertableJson $json) => 
-                        $json->hasAll('id', 'street', 'number', 'complement', 'district', 'city', 
+                    ->first(fn (AssertableJson $json) =>
+                        $json->hasAll('id', 'street', 'number', 'complement', 'district', 'city',
                             'state', 'country', 'zipcode', 'personId', 'createdAt', 'updatedAt'
                         )
                     )

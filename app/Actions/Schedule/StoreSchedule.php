@@ -2,10 +2,10 @@
 
 namespace App\Actions\Schedule;
 
-use App\Models\Service;
-use App\Models\Schedule;
 use App\DTOs\StoreScheduleDTO;
 use App\Models\PaymentSituation;
+use App\Models\Schedule;
+use App\Models\Service;
 
 class StoreSchedule
 {

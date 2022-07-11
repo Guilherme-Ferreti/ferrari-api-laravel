@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Person;
 use App\Models\Service;
-use Illuminate\Testing\Fluent\AssertableJson;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Tests\TestCase;
 
 class ServiceTest extends TestCase
 {
@@ -19,7 +19,7 @@ class ServiceTest extends TestCase
 
         $this->get(route('services.index'))
             ->assertOk()
-            ->assertJson(fn (AssertableJson $json) => 
+            ->assertJson(fn (AssertableJson $json) =>
                 $json->has(5)
                     ->first(fn (AssertableJson $json) =>
                         $json->hasAll('id', 'name', 'description', 'price', 'createdAt', 'updatedAt')
@@ -33,7 +33,7 @@ class ServiceTest extends TestCase
 
         $this->getJson(route('services.show', $service))
             ->assertOk()
-            ->assertJson(fn (AssertableJson $json) => 
+            ->assertJson(fn (AssertableJson $json) =>
                 $json->where('id', $service->id)
                     ->where('name', $service->name)
                     ->where('description', $service->description)

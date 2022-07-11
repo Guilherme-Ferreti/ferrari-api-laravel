@@ -1,16 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\PaymentSituationController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SearchCepController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TimeOptionController;
-use App\Http\Controllers\PaymentSituationController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ Route::prefix('/auth')
 
         Route::middleware('auth')->group(function () {
             Route::put('/change-password', [PasswordController::class, 'changePassword'])->name('change_password');
-            
+
             Route::get('/me', [ProfileController::class, 'show'])->name('profile.show');
 
             Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -69,7 +69,7 @@ Route::prefix('/time-options')
     ->controller(TimeOptionController::class)
     ->group(function () {
         Route::get('/', 'index')->name('index');
-        
+
         Route::middleware('auth')
             ->group(function () {
                 Route::post('/', 'store')->name('store');

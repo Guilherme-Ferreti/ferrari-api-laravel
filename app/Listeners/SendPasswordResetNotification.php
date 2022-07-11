@@ -2,10 +2,8 @@
 
 namespace App\Listeners;
 
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Notifications\PasswordReset as PasswordResetNotification;
+use Illuminate\Auth\Events\PasswordReset;
 
 class SendPasswordResetNotification
 {

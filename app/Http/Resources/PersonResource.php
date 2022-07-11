@@ -16,7 +16,7 @@ class PersonResource extends JsonResource
             'document'  => $this->document,
             'createdAt' => $this->created_at->toDateTimeString(),
             'updatedAt' => $this->updated_at->toDateTimeString(),
-            
+
             'user'      => new UserResource($this->whenLoaded('user')),
         ];
     }

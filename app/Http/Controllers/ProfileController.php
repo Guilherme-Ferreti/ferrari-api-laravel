@@ -53,7 +53,7 @@ class ProfileController extends Controller
                 'photo' => null,
             ]);
         }
-        
+
         return new UserResource(auth()->user());
     }
 }

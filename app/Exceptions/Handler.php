@@ -46,10 +46,10 @@ class Handler extends ExceptionHandler
         if ($e instanceof ModelNotFoundException) {
             $model = str($e->getModel())->basename()->ucsplit()->implode(' ');
 
-            $message = $model .' not found.';
+            $message = $model.' not found.';
 
             return response()->json([
-                'message' => __($message)
+                'message' => __($message),
             ], Response::HTTP_NOT_FOUND);
         }
 

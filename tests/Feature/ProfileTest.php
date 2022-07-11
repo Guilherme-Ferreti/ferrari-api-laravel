@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Person;
+use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Testing\Fluent\AssertableJson;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
@@ -33,12 +33,12 @@ class ProfileTest extends TestCase
         $this->actingAs($user)
             ->putJson($route, $payload)
             ->assertOk()
-            ->assertJson(fn (AssertableJson $json) => 
+            ->assertJson(fn (AssertableJson $json) =>
                 $json
                     ->where('id', $user->id)
                     ->where('email', $payload['email'])
                     ->hasAll('photo', 'createdAt', 'updatedAt')
-                    ->has('person', fn (AssertableJson $json) => 
+                    ->has('person', fn (AssertableJson $json) =>
                         $json
                             ->where('id', $user->person->id)
                             ->where('name', $payload['name'])
@@ -50,18 +50,18 @@ class ProfileTest extends TestCase
                     ->etc()
             );
 
-            $this->assertDatabaseHas(Person::class, [
-                '_id'       => $user->person->_id,
-                'name'      => $payload['name'],
-                'birth_at'  => $payload['birthAt'],
-                'phone'     => $payload['phone'],
-                'document'  => $payload['document'],
-            ]);
-    
-            $this->assertDatabaseHas(User::class, [
-                '_id'   => $user->_id,
-                'email' => $payload['email'],
-            ]);
+        $this->assertDatabaseHas(Person::class, [
+            '_id'       => $user->person->_id,
+            'name'      => $payload['name'],
+            'birth_at'  => $payload['birthAt'],
+            'phone'     => $payload['phone'],
+            'document'  => $payload['document'],
+        ]);
+
+        $this->assertDatabaseHas(User::class, [
+            '_id'   => $user->_id,
+            'email' => $payload['email'],
+        ]);
     }
 
     public function test_a_user_can_upload_a_photo()
@@ -70,7 +70,7 @@ class ProfileTest extends TestCase
 
         $newPhoto = UploadedFile::fake()->image('new_photo.jpg');
         $oldPhoto = UploadedFile::fake()->image('old_photo.jpg');
-        
+
         $user = User::factory()->for(Person::factory())->create([
             'photo' => $oldPhoto->hashName('photos/'),
         ]);
@@ -93,11 +93,11 @@ class ProfileTest extends TestCase
     public function test_a_user_can_delete_its_photo()
     {
         Storage::fake('public');
-        
+
         $photo = UploadedFile::fake()->image('photo.jpg');
 
         Storage::disk('public')->put('/photos', $photo);
-        
+
         $user = User::factory()->for(Person::factory())->create([
             'photo' => $photo->hashName('photos/'),
         ]);

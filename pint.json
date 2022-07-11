@@ -1,0 +1,7 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "no_multiline_whitespace_around_double_arrow": false,
+        "binary_operator_spaces": false
+    }
+}

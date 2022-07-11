@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Person;
 use App\Models\Contact;
+use App\Models\Person;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Tests\TestCase;
 
 class ContactTest extends TestCase
 {
@@ -26,9 +26,9 @@ class ContactTest extends TestCase
         $this->actingAs($admin)
             ->getJson($route)
             ->assertOk()
-            ->assertJson(fn (AssertableJson $json) => 
+            ->assertJson(fn (AssertableJson $json) =>
                 $json->has(5)
-                    ->first(fn (AssertableJson $json) => 
+                    ->first(fn (AssertableJson $json) =>
                         $json->hasAll('id', 'email', 'message', 'personId', 'createdAt', 'updatedAt')
                     )
             );
@@ -37,7 +37,7 @@ class ContactTest extends TestCase
     public function test_all_user_contacts_are_retrieved()
     {
         Contact::factory(10)->for(Person::factory())->create();
-        
+
         $user = User::factory()->for(Person::factory())->create();
         Contact::factory(5)->for($user->person)->create();
 
@@ -48,9 +48,9 @@ class ContactTest extends TestCase
         $this->actingAs($user)
             ->getJson($route)
             ->assertOk()
-            ->assertJson(fn (AssertableJson $json) => 
+            ->assertJson(fn (AssertableJson $json) =>
                 $json->has(5)
-                    ->first(fn (AssertableJson $json) => 
+                    ->first(fn (AssertableJson $json) =>
                         $json->hasAll('id', 'email', 'message', 'personId', 'createdAt', 'updatedAt')
                     )
             );
@@ -68,7 +68,7 @@ class ContactTest extends TestCase
         $this->actingAs($user)
             ->getJson($route)
             ->assertOk()
-            ->assertJson(fn (AssertableJson $json) => 
+            ->assertJson(fn (AssertableJson $json) =>
                 $json->where('id', $contact->id)
                     ->where('email', $contact->email)
                     ->where('message', $contact->message)

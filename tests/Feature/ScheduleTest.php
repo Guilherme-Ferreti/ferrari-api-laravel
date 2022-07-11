@@ -2,15 +2,15 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Person;
 use App\Models\Address;
+use App\Models\Person;
 use App\Models\Schedule;
 use App\Models\Service;
 use App\Models\TimeOption;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Tests\TestCase;
 
 class ScheduleTest extends TestCase
 {
@@ -44,7 +44,7 @@ class ScheduleTest extends TestCase
     {
         $user = User::factory()->for(Person::factory())->create();
         Schedule::factory(2)->for($user->person)->has(Service::factory(3))->create();
-        
+
         Schedule::factory(5)->has(Service::factory(3))->create();
 
         $route = route('schedules.my_schedules');
@@ -126,7 +126,7 @@ class ScheduleTest extends TestCase
 
         $scheduleServices = Schedule::first()->services->pluck('id')->toArray();
 
-        $services->each(fn (Service $service) => 
+        $services->each(fn (Service $service) =>
             $this->assertContains($service->id, $scheduleServices)
         );
     }

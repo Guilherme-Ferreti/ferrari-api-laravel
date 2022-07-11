@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TimeOptionResource;
 use App\Models\TimeOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Resources\TimeOptionResource;
 
 class TimeOptionController extends Controller
 {
@@ -20,9 +20,9 @@ class TimeOptionController extends Controller
 
         $validator = Validator::make($request->all(), [
             'day'  => 'required|integer|between:0,6',
-            'time' => ['required', 'string', 'regex:/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/']
+            'time' => ['required', 'string', 'regex:/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/'],
         ])->stopOnFirstFailure();
-        
+
         $validator->after(function ($validator) {
             $exists = TimeOption::where(request()->only('day', 'time'))->exists();
 

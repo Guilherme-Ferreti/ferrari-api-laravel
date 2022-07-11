@@ -32,20 +32,20 @@ class StoreScheduleRequest extends FormRequest
     {
         return [
             'timeOptionId' => [
-                'bail', 'required', 'string', 
+                'bail', 'required', 'string',
                 Rule::exists(TimeOption::class, '_id')->whereNull('deleted_at'),
             ],
             'billingAddressId' => [
-                'bail', 'required', 'string', 
+                'bail', 'required', 'string',
                 Rule::exists(Address::class, '_id')->where('person_id', auth()->user()->person_id),
             ],
             'scheduleAt' => [
                 'bail', 'required', 'string', 'date_format:Y-m-d',
-                new SameDayOfWeekAsTimeOption
+                new SameDayOfWeekAsTimeOption,
             ],
             'installments' => [
-                'bail', 'required', 'integer', 'min:1', 
-                'max:'.Schedule::MAX_ALLOWED_INSTALLMENTS
+                'bail', 'required', 'integer', 'min:1',
+                'max:'.Schedule::MAX_ALLOWED_INSTALLMENTS,
             ],
             'services' => 'bail|required|array|min:1',
             'services.*' => ['bail', 'string', Rule::exists(Service::class, '_id')->whereNull('deleted_at')],

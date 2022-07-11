@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Person;
+use App\Models\User;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
+use Tests\TestCase;
 
 class SearchCepTest extends TestCase
 {
@@ -20,7 +20,7 @@ class SearchCepTest extends TestCase
             ->getJson(route('addresses.search_cep', ['cep' => '15370496']))
             ->assertOk();
 
-        Http::assertSent(fn (Request $request) => 
+        Http::assertSent(fn (Request $request) =>
             $request->url() === 'https://viacep.com.br/ws/15370496/json/'
         );
     }

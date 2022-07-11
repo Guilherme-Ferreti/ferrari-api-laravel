@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Person;
 use App\Models\TimeOption;
-use Illuminate\Testing\Fluent\AssertableJson;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Tests\TestCase;
 
 class TimeOptionTest extends TestCase
 {
@@ -19,7 +19,7 @@ class TimeOptionTest extends TestCase
 
         $this->getJson(route('time_options.index'))
             ->assertOk()
-            ->assertJson(fn (AssertableJson $json) => 
+            ->assertJson(fn (AssertableJson $json) =>
                 $json->has(5)
                     ->first(fn (AssertableJson $json) =>
                         $json->where('id', $timeOptions[0]->id)

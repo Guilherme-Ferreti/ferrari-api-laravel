@@ -3,9 +3,9 @@
 namespace App\Rules;
 
 use App\Models\TimeOption;
-use Illuminate\Support\Carbon;
-use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Contracts\Validation\DataAwareRule;
+use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Carbon;
 
 class SameDayOfWeekAsTimeOption implements Rule, DataAwareRule
 {
@@ -46,7 +46,7 @@ class SameDayOfWeekAsTimeOption implements Rule, DataAwareRule
     public function setData($data)
     {
         $this->data = $data;
- 
+
         return $this;
     }
 }

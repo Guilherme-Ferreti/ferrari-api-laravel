@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Person;
 use App\Models\PaymentSituation;
-use Illuminate\Testing\Fluent\AssertableJson;
+use App\Models\Person;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Tests\TestCase;
 
 class PaymentSituationTest extends TestCase
 {

@@ -20,9 +20,9 @@ class AuthService
         }
 
         return [
-            $user, 
-            self::createJwtFor($user)
-        ]; 
+            $user,
+            self::createJwtFor($user),
+        ];
     }
 
     public static function createJwtFor(User $user): string

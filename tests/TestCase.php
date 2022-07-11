@@ -12,7 +12,7 @@ abstract class TestCase extends BaseTestCase
 
     public function assertAuthenticatedOnly(string $route, string $method = 'post'): void
     {
-        $response = $this->{$method."Json"}($route);
+        $response = $this->{$method.'Json'}($route);
         $response->assertUnauthorized();
     }
 
@@ -22,7 +22,7 @@ abstract class TestCase extends BaseTestCase
 
         $nonAdmin = User::factory()->for(Person::factory())->create();
 
-        $response = $this->actingAs($nonAdmin)->{$method."Json"}($route);
+        $response = $this->actingAs($nonAdmin)->{$method.'Json'}($route);
         $response->assertForbidden();
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PaymentSituationResource;
+use App\Models\PaymentSituation;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Models\PaymentSituation;
-use App\Http\Resources\PaymentSituationResource;
 
 class PaymentSituationController extends Controller
 {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
-use Illuminate\Http\Request;
 use App\Actions\Contact\StoreContact;
 use App\Http\Resources\ContactResource;
+use App\Models\Contact;
+use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
@@ -35,9 +35,9 @@ class ContactController extends Controller
     public function store(Request $request, StoreContact $storeContact)
     {
         $attributes = $request->validate([
-           'name'    => 'required|string|max:255',
-           'email'   => 'required|string|email|max:255',
-           'message' => 'required|string|max:65000',
+            'name'    => 'required|string|max:255',
+            'email'   => 'required|string|email|max:255',
+            'message' => 'required|string|max:65000',
         ]);
 
         $contact = $storeContact($attributes);

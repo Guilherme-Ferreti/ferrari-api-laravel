@@ -19,7 +19,7 @@ class PasswordController extends Controller
         ]);
 
         auth()->user()->update([
-            'password' => Hash::make($request->newPassword)
+            'password' => Hash::make($request->newPassword),
         ]);
 
         event(new PasswordReset(auth()->user()));
@@ -39,7 +39,7 @@ class PasswordController extends Controller
             ? $this->respondOk(['status' => __($status)])
             : $this->respondBadRequest(['email' => __($status)]);
     }
-    
+
     public function resetPassword(Request $request)
     {
         $request->validate([

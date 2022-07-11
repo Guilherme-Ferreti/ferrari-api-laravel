@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Person;
+use App\Models\User;
 use App\Services\AuthService;
-use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
@@ -39,14 +39,14 @@ class AuthTest extends TestCase
 
         $this->postJson(route('auth.register'), $payload)
             ->assertOk()
-            ->assertJson(fn (AssertableJson $json) => 
+            ->assertJson(fn (AssertableJson $json) =>
                 $json
                     ->has('accessToken')
-                    ->has('user', fn (AssertableJson $json) => 
+                    ->has('user', fn (AssertableJson $json) =>
                         $json
                             ->hasAll('id', 'photo', 'createdAt', 'updatedAt')
                             ->where('email', $payload['email'])
-                            ->has('person', fn (AssertableJson $json) => 
+                            ->has('person', fn (AssertableJson $json) =>
                                 $json
                                     ->hasAll('id', 'createdAt', 'updatedAt')
                                     ->where('name', $payload['name'])
@@ -82,15 +82,15 @@ class AuthTest extends TestCase
 
         $this->postJson(route('auth.login'), $payload)
             ->assertOk()
-            ->assertJson(fn (AssertableJson $json) => 
+            ->assertJson(fn (AssertableJson $json) =>
                 $json
                     ->has('accessToken')
-                    ->has('user', fn (AssertableJson $json) => 
+                    ->has('user', fn (AssertableJson $json) =>
                         $json
                             ->hasAll('photo', 'createdAt', 'updatedAt')
                             ->where('id', $user->id)
                             ->where('email', $user->email)
-                            ->has('person', fn (AssertableJson $json) => 
+                            ->has('person', fn (AssertableJson $json) =>
                                 $json
                                     ->where('id', $user->person->id)
                                     ->where('name', $user->person->name)
@@ -112,16 +112,16 @@ class AuthTest extends TestCase
         $route = route('auth.profile.show');
 
         $this->assertAuthenticatedOnly($route, 'get');
-        
+
         $this->actingAs($user)
             ->getJson($route)
             ->assertOk()
-            ->assertJson(fn (AssertableJson $json) => 
+            ->assertJson(fn (AssertableJson $json) =>
                 $json
                     ->hasAll('photo', 'createdAt', 'updatedAt')
                     ->where('id', $user->id)
                     ->where('email', $user->email)
-                    ->has('person', fn (AssertableJson $json) => 
+                    ->has('person', fn (AssertableJson $json) =>
                         $json
                             ->where('id', $user->person->id)
                             ->where('name', $user->person->name)

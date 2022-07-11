@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Schedule;
-use Illuminate\Http\Request;
 use App\Actions\Schedule\StoreSchedule;
-use App\Http\Resources\ScheduleResource;
 use App\Http\Requests\StoreScheduleRequest;
+use App\Http\Resources\ScheduleResource;
+use App\Models\Schedule;
 
 class ScheduleController extends Controller
 {
